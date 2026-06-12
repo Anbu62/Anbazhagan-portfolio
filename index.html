@@ -1,0 +1,1805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Anbazhagan Selvam — 3D Visualiser & Product Designer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080808;--bg2:#111;--bg3:#161616;--surface:#1e1e1e;
+  --border:#252525;--border2:#333;
+  --accent:#c8a96e;--accent2:#e8c88a;--adim:rgba(200,169,110,0.12);
+  --text:#f0ede8;--text2:#9e9a94;--text3:#5a5652;
+  --fd:"Playfair Display",serif;--fb:"DM Sans",sans-serif;--fm:"Space Mono",monospace;
+}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--fb);overflow-x:hidden}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--accent)}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:30px 64px;display:flex;align-items:center;justify-content:space-between;transition:all .4s}
+nav.s{padding:16px 64px;background:rgba(8,8,8,.94);backdrop-filter:blur(24px);border-bottom:1px solid var(--border)}
+.nlogo{font-family:var(--fd);font-size:22px;font-weight:900;color:var(--text);text-decoration:none;letter-spacing:-.5px}.nlogo span{color:var(--accent)}
+.nlinks{display:flex;gap:44px;list-style:none}.nlinks a{color:var(--text3);font-size:12px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;transition:color .3s;font-weight:500}.nlinks a:hover{color:var(--accent)}
+.nbtn{font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--accent);padding:11px 24px;text-decoration:none;transition:all .25s}.nbtn:hover{background:var(--accent2)}
+.hero{min-height:100vh;display:flex;align-items:flex-end;padding:0 64px 90px;position:relative;overflow:hidden}
+.hgrid{position:absolute;inset:0;background-image:linear-gradient(var(--border) 1px,transparent 1px),linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:72px 72px;opacity:.25}
+.hglow{position:absolute;right:25%;top:10%;width:600px;height:600px;background:radial-gradient(circle,rgba(200,169,110,.07) 0%,transparent 70%);pointer-events:none}
+.hphoto{position:absolute;right:0;top:0;bottom:0;width:48%;overflow:hidden}
+.hphoto::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--bg) 0%,rgba(8,8,8,.4) 35%,transparent 60%);z-index:1}
+.hphoto::after{content:"";position:absolute;top:0;left:0;right:0;height:180px;background:linear-gradient(to bottom,var(--bg),transparent);z-index:1}
+.hphoto img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(25%) contrast(1.08) brightness(.92)}
+.hc{position:relative;z-index:2;max-width:720px}
+.heyebrow{font-family:var(--fm);font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:var(--accent);margin-bottom:32px;display:flex;align-items:center;gap:16px}
+.heyebrow::before{content:"";width:48px;height:1px;background:var(--accent)}
+.avail{width:7px;height:7px;border-radius:50%;background:#4ade80;display:inline-block;animation:pulse 2s infinite;box-shadow:0 0 0 0 rgba(74,222,128,.5)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(74,222,128,.5)}70%{box-shadow:0 0 0 8px rgba(74,222,128,0)}100%{box-shadow:0 0 0 0 rgba(74,222,128,0)}}
+.hname{font-family:var(--fd);font-size:clamp(72px,10vw,140px);line-height:.88;font-weight:900;letter-spacing:-3px;margin-bottom:36px}
+.hname em{display:block;font-style:italic;color:var(--accent)}
+.hsub{font-size:17px;line-height:1.75;color:var(--text2);max-width:500px;margin-bottom:52px;font-weight:300}
+.hacts{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+.btnp{font-family:var(--fm);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--bg);background:var(--accent);padding:17px 36px;text-decoration:none;transition:all .3s;display:inline-flex;align-items:center;gap:10px}.btnp:hover{background:var(--accent2);transform:translateY(-2px)}
+.btng{font-family:var(--fm);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--text2);background:transparent;padding:17px 36px;border:1px solid var(--border2);text-decoration:none;transition:all .3s;display:inline-flex;align-items:center;gap:10px}.btng:hover{color:var(--text);border-color:var(--text2)}
+.hscroll{position:absolute;bottom:48px;right:64px;z-index:2;display:flex;flex-direction:column;align-items:center;gap:14px;color:var(--text3);font-family:var(--fm);font-size:10px;letter-spacing:.25em;text-transform:uppercase}
+.hline{width:1px;height:64px;background:linear-gradient(var(--accent),transparent);animation:sl 2s ease-in-out infinite}
+@keyframes sl{0%,100%{transform:scaleY(1);opacity:1}50%{transform:scaleY(.4);opacity:.3}}
+.marquee{padding:24px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);overflow:hidden;background:var(--bg2)}
+.mtrack{display:flex;animation:mq 22s linear infinite;width:max-content}
+.mitem{font-family:var(--fd);font-size:20px;font-style:italic;color:var(--text3);padding:0 44px;display:flex;align-items:center;gap:44px;white-space:nowrap}
+.mdot{width:5px;height:5px;background:var(--accent);border-radius:50%;flex-shrink:0}
+@keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.sec{padding:130px 64px}
+.slabel{font-family:var(--fm);font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--accent);margin-bottom:18px;display:flex;align-items:center;gap:14px}.slabel::before{content:"";width:32px;height:1px;background:var(--accent)}
+.stitle{font-family:var(--fd);font-size:clamp(40px,5.5vw,76px);font-weight:700;line-height:1.02;letter-spacing:-2px;margin-bottom:16px}.stitle em{font-style:italic;color:var(--accent)}
+.wtop{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:64px;flex-wrap:wrap;gap:24px}
+.frow{display:flex;gap:8px;flex-wrap:wrap}
+.fb{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);background:transparent;padding:9px 18px;border:1px solid var(--border);cursor:pointer;transition:all .25s}.fb:hover,.fb.active{color:var(--accent);border-color:var(--accent);background:var(--adim)}
+.pgrid{display:grid;grid-template-columns:repeat(12,1fr);gap:20px}
+.pc{background:var(--bg3);overflow:hidden;cursor:pointer;position:relative}
+.pc.lg{grid-column:span 7}.pc.md{grid-column:span 5}.pc.wd{grid-column:span 12}.pc.hf{grid-column:span 6}
+.pthumb{overflow:hidden;position:relative}
+.pc.lg .pthumb{aspect-ratio:16/10}.pc.md .pthumb,.pc.hf .pthumb{aspect-ratio:4/3}.pc.wd .pthumb{aspect-ratio:21/9}
+.pinner{width:100%;height:100%;position:relative;overflow:hidden}
+.pinner video,.pinner img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)}
+.pc:hover .pinner video,.pc:hover .pinner img{transform:scale(1.07)}
+.pbg{position:absolute;inset:0}
+.c1{background:linear-gradient(135deg,#0f0800 0%,#2a1500 45%,#4a2800 100%)}
+.c2{background:linear-gradient(135deg,#001515 0%,#002d2d 45%,#004444 100%)}
+.c3{background:linear-gradient(135deg,#080012 0%,#160030 45%,#240055 100%)}
+.c4{background:linear-gradient(135deg,#120003 0%,#2d0008 45%,#4a0015 100%)}
+.c5{background:linear-gradient(135deg,#001208 0%,#002d16 45%,#004422 100%)}
+.ptxt{position:absolute;font-family:var(--fd);font-size:clamp(22px,3.5vw,48px);font-weight:900;color:rgba(255,255,255,.06);letter-spacing:-2px;text-align:center;padding:20px;line-height:1;z-index:1;top:50%;left:50%;transform:translate(-50%,-50%)}
+.pov{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,8,.96) 0%,rgba(8,8,8,.1) 55%,transparent 100%);opacity:0;transition:opacity .4s;z-index:2}
+.pc:hover .pov{opacity:1}
+.phov{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%) scale(.75);opacity:0;transition:all .4s;background:var(--accent);color:var(--bg);font-family:var(--fm);font-size:11px;letter-spacing:.12em;text-transform:uppercase;padding:13px 26px;white-space:nowrap;z-index:3}
+.pc:hover .phov{opacity:1;transform:translate(-50%,-50%) scale(1)}
+.pinfo{padding:24px 28px 32px}
+.pmeta{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.ptag{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:var(--adim);padding:4px 10px}
+.pyr{font-family:var(--fm);font-size:10px;color:var(--text3)}
+.ptitle{font-family:var(--fd);font-size:22px;font-weight:700;letter-spacing:-.3px;margin-bottom:8px;transition:color .3s;line-height:1.2}
+.pc:hover .ptitle{color:var(--accent)}
+.psum{font-size:13px;color:var(--text2);line-height:1.65;font-weight:300}
+.agrid{display:grid;grid-template-columns:1fr 1.1fr;gap:100px;align-items:center;margin-top:64px}
+.aimg{position:relative;aspect-ratio:3/4;overflow:hidden}
+.aimg img{width:100%;height:100%;object-fit:cover;object-position:center top;filter:grayscale(15%) contrast(1.05);transition:transform 1.4s cubic-bezier(.25,.46,.45,.94)}.aimg:hover img{transform:scale(1.04)}
+.aframe{position:absolute;inset:18px;border:1px solid rgba(200,169,110,.2);pointer-events:none}
+.ac{position:absolute;width:24px;height:24px;border-color:var(--accent);border-style:solid}.ac.tl{top:10px;left:10px;border-width:1px 0 0 1px}.ac.tr{top:10px;right:10px;border-width:1px 1px 0 0}.ac.bl{bottom:10px;left:10px;border-width:0 0 1px 1px}.ac.br{bottom:10px;right:10px;border-width:0 1px 1px 0}
+.atag{display:inline-block;font-family:var(--fm);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);background:var(--adim);padding:7px 16px;margin-bottom:28px}
+.ah2{font-family:var(--fd);font-size:clamp(34px,3.8vw,56px);font-weight:700;line-height:1.08;letter-spacing:-1.2px;margin-bottom:26px}.ah2 em{font-style:italic;color:var(--accent)}
+.ap{color:var(--text2);font-size:16px;line-height:1.82;margin-bottom:18px;font-weight:300}
+.astats{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:44px;padding-top:44px;border-top:1px solid var(--border)}
+.sn{font-family:var(--fd);font-size:46px;font-weight:900;color:var(--accent);line-height:1}.sl{font-size:13px;color:var(--text3);margin-top:7px;font-weight:400;line-height:1.4}
+.exprow{margin-top:40px;display:flex;flex-direction:column;gap:0}
+.expitem{display:flex;justify-content:space-between;align-items:center;padding:18px 0;border-bottom:1px solid var(--border)}
+.erole{font-size:15px;font-weight:500;color:var(--text)}.eco{font-size:13px;color:var(--text3)}.eyr{font-family:var(--fm);font-size:11px;color:var(--accent)}
+.svctop{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:60px;flex-wrap:wrap;gap:20px}
+.sgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border)}
+.sc{background:var(--bg2);padding:52px 44px;position:relative;overflow:hidden;transition:background .3s}
+.sc::after{content:"";position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .5s cubic-bezier(.25,.46,.45,.94);transform-origin:left}
+.sc:hover{background:var(--bg3)}.sc:hover::after{transform:scaleX(1)}
+.scnum{font-family:var(--fm);font-size:11px;letter-spacing:.15em;color:var(--text3);margin-bottom:30px}
+.scico{width:48px;height:48px;margin-bottom:24px;color:var(--accent);opacity:.9}
+.scname{font-family:var(--fd);font-size:23px;font-weight:700;margin-bottom:14px;letter-spacing:-.3px}
+.scdesc{color:var(--text2);font-size:14px;line-height:1.72;font-weight:300}
+.toolsec{padding:80px 64px;background:var(--bg3);border-top:1px solid var(--border)}
+.tgrid{display:flex;flex-wrap:wrap;gap:12px;margin-top:40px}
+.tp{font-family:var(--fm);font-size:11px;letter-spacing:.08em;color:var(--text2);border:1px solid var(--border2);padding:10px 20px;transition:all .3s;cursor:default}.tp:hover{color:var(--accent);border-color:var(--accent);background:var(--adim)}
+.tsec{background:var(--bg2);padding:130px 64px}
+.tgrd{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px}
+.tc{background:var(--bg3);padding:44px 36px;border:1px solid var(--border);position:relative}
+.tc::before{content:open-quote;position:absolute;top:24px;right:28px;font-family:var(--fd);font-size:80px;color:var(--accent);opacity:.15;line-height:1}
+.tcq{font-family:var(--fd);font-size:18px;font-style:italic;line-height:1.55;color:var(--text);display:block;margin-bottom:28px}
+.tcn{font-size:14px;font-weight:500;color:var(--text)}.tcr{font-family:var(--fm);font-size:11px;color:var(--text3);margin-top:4px}
+.tcstars{display:flex;gap:4px;margin-bottom:20px}.star{color:var(--accent);font-size:14px}
+.contact{background:var(--bg);padding:160px 64px;text-align:center}
+.cinner{max-width:820px;margin:0 auto}
+.csub{color:var(--text2);font-size:17px;line-height:1.75;font-weight:300;margin-top:24px;margin-bottom:48px}
+.availrow{display:flex;align-items:center;gap:10px;justify-content:center;font-family:var(--fm);font-size:12px;color:var(--text3);margin-bottom:52px}
+.clrow{display:flex;justify-content:center;gap:20px;flex-wrap:wrap}
+.cl{color:var(--text2);font-family:var(--fm);font-size:12px;letter-spacing:.15em;text-transform:uppercase;text-decoration:none;padding:16px 32px;border:1px solid var(--border2);transition:all .3s;display:flex;align-items:center;gap:10px}.cl:hover{color:var(--accent);border-color:var(--accent);background:var(--adim)}
+footer{padding:44px 64px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;background:var(--bg)}
+.fc{font-family:var(--fm);font-size:11px;color:var(--text3);letter-spacing:.1em}
+.fl{display:flex;gap:36px}.fl a{color:var(--text3);font-family:var(--fm);font-size:11px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;transition:color .3s}.fl a:hover{color:var(--accent)}
+/* CASE STUDY */
+.caseov{position:fixed;inset:0;z-index:500;background:var(--bg);transform:translateY(100%);transition:transform .65s cubic-bezier(.77,0,.18,1);overflow-y:auto}
+.caseov.open{transform:translateY(0)}
+.caseclose{position:fixed;top:28px;right:44px;z-index:600;background:rgba(8,8,8,.85);backdrop-filter:blur(12px);border:1px solid var(--border2);width:52px;height:52px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text2);font-size:20px;transition:all .3s}.caseclose:hover{color:var(--accent);border-color:var(--accent)}
+.casehero{min-height:88vh;display:flex;flex-direction:column;justify-content:flex-end;padding:0 80px 88px;position:relative;overflow:hidden}
+.chbg{position:absolute;inset:0}.chgrid{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:64px 64px}
+.chc{position:relative;z-index:2;max-width:800px}
+.chtag{font-family:var(--fm);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:var(--accent);margin-bottom:26px;display:flex;align-items:center;gap:14px}.chtag::before{content:"";width:36px;height:1px;background:var(--accent)}
+.chtitle{font-family:var(--fd);font-size:clamp(56px,7vw,104px);font-weight:900;line-height:.88;letter-spacing:-3px;margin-bottom:28px}
+.chsub{font-size:18px;color:var(--text2);font-weight:300;line-height:1.65;max-width:560px;margin-bottom:56px}
+.chmeta{display:flex;gap:52px;padding-top:36px;border-top:1px solid var(--border);flex-wrap:wrap}
+.cml{font-family:var(--fm);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--text3);margin-bottom:9px}
+.cmv{font-size:15px;color:var(--text)}
+.casebody{padding:80px}
+.csec{margin-bottom:80px}
+.cseclabel{font-family:var(--fm);font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:var(--accent);margin-bottom:22px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.csec h3{font-family:var(--fd);font-size:clamp(30px,3.2vw,48px);font-weight:700;letter-spacing:-1px;margin-bottom:22px;line-height:1.08}
+.csec p{color:var(--text2);font-size:16px;line-height:1.82;font-weight:300;margin-bottom:16px;max-width:700px}
+.imgfull{width:100%;overflow:hidden;margin:44px 0}
+.imgfull-inner{width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center}
+.imggrid2{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin:44px 0}
+.mrow{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);margin:44px 0}
+.mc{background:var(--bg2);padding:52px 36px;text-align:center}
+.mn{font-family:var(--fd);font-size:60px;font-weight:900;color:var(--accent);line-height:1;display:block}
+.ml{font-size:14px;color:var(--text2);margin-top:12px;font-weight:300}
+.palrow{display:flex;height:84px;margin:36px 0}
+.sw{flex:1;transition:flex .3s;cursor:pointer}.sw:hover{flex:2.5}
+.swin{height:80px}.swhex{font-family:var(--fm);font-size:10px;padding:6px 10px;background:rgba(0,0,0,.4);color:var(--text2);margin-top:4px}
+.tblock{border-left:2px solid var(--accent);padding:36px 44px;margin:52px 0;background:var(--bg2)}
+.tblock q{font-family:var(--fd);font-size:22px;font-style:italic;line-height:1.5;color:var(--text);display:block;margin-bottom:22px;quotes:none}
+.tblock cite{font-family:var(--fm);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);font-style:normal}
+.casenav{display:flex;justify-content:space-between;align-items:center;padding-top:44px;border-top:1px solid var(--border)}
+/* VIDEO MODULE */
+.vid-module{margin:44px 0;background:#000;position:relative}
+.vid-module video{width:100%;display:block;max-height:75vh;object-fit:contain}
+.vid-label{font-family:var(--fm);font-size:10px;letter-spacing:.25em;text-transform:uppercase;color:var(--text3);padding:14px 20px;border-top:1px solid var(--border)}
+/* SCROLL REVEAL */
+.rv{opacity:0;transform:translateY(36px);transition:opacity .85s cubic-bezier(.25,.46,.45,.94),transform .85s cubic-bezier(.25,.46,.45,.94)}.rv.in{opacity:1;transform:translateY(0)}
+/* ── LANGUAGE TOGGLE ── */
+.lang-toggle{display:flex;align-items:center;gap:0;border:1px solid var(--border2);overflow:hidden;margin-right:16px;flex-shrink:0}
+.lang-btn{font-family:var(--fm);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);background:transparent;padding:8px 14px;border:none;cursor:pointer;transition:all .25s;line-height:1}
+.lang-btn.active{color:var(--bg);background:var(--accent)}
+.lang-btn:hover:not(.active){color:var(--text);background:rgba(255,255,255,.05)}
+.lang-sep{width:1px;background:var(--border2);height:16px;flex-shrink:0}
+@media(max-width:900px){.lang-toggle{margin-right:8px}.lang-btn{padding:7px 10px;font-size:9px}}
+
+/* ── EXPERIENCE ── */
+.exp-section{background:var(--bg2);padding:130px 64px}
+.exp-timeline{margin-top:64px;display:flex;flex-direction:column;gap:0}
+.exp-entry{display:grid;grid-template-columns:220px 1fr;gap:48px;padding:52px 0;border-top:1px solid var(--border);position:relative}
+.exp-entry:last-child{border-bottom:1px solid var(--border)}
+.exp-left{}
+.exp-period{font-family:var(--fm);font-size:11px;letter-spacing:.12em;color:var(--accent);margin-bottom:10px;text-transform:uppercase}
+.exp-co{font-family:var(--fd);font-size:17px;font-weight:700;color:var(--text);line-height:1.2;margin-bottom:6px;letter-spacing:-.2px}
+.exp-loc{font-size:12px;color:var(--text3);font-family:var(--fm);letter-spacing:.08em}
+.exp-right{}
+.exp-role{font-family:var(--fd);font-size:22px;font-weight:700;color:var(--text);margin-bottom:16px;letter-spacing:-.3px;line-height:1.2}
+.exp-role em{color:var(--accent);font-style:normal}
+.exp-desc{color:var(--text2);font-size:14px;line-height:1.75;margin-bottom:16px;font-weight:300}
+.exp-bullets{list-style:none;display:flex;flex-direction:column;gap:10px;margin-top:4px}
+.exp-bullets li{color:var(--text2);font-size:14px;line-height:1.65;padding-left:20px;position:relative;font-weight:300}
+.exp-bullets li::before{content:"";position:absolute;left:0;top:9px;width:6px;height:1px;background:var(--accent)}
+.exp-tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.exp-tag-pill{font-family:var(--fm);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);background:rgba(200,169,110,.1);padding:5px 12px}
+
+/* ── WHAT I DO ── */
+.wido-section{background:var(--bg3);padding:130px 64px}
+.wido-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border);margin-top:60px}
+.wido-card{background:var(--bg3);padding:48px 36px;position:relative;overflow:hidden;transition:background .3s}
+.wido-card::after{content:"";position:absolute;bottom:0;left:0;right:0;height:2px;background:var(--accent);transform:scaleX(0);transition:transform .5s cubic-bezier(.25,.46,.45,.94);transform-origin:left}
+.wido-card:hover{background:var(--bg2)}.wido-card:hover::after{transform:scaleX(1)}
+.wido-icon{width:44px;height:44px;color:var(--accent);margin-bottom:24px;opacity:.9}
+.wido-num{font-family:var(--fm);font-size:10px;letter-spacing:.2em;color:var(--text3);margin-bottom:28px;text-transform:uppercase}
+.wido-title{font-family:var(--fd);font-size:20px;font-weight:700;margin-bottom:14px;letter-spacing:-.2px;color:var(--text)}
+.wido-desc{font-size:13px;color:var(--text2);line-height:1.72;font-weight:300}
+
+@media(max-width:900px){
+  .exp-section,.wido-section{padding:80px 24px}
+  .exp-entry{grid-template-columns:1fr;gap:16px}
+  .wido-grid{grid-template-columns:1fr 1fr}
+}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
+@media(max-width:900px){
+  nav{padding:18px 24px}nav.s{padding:14px 24px}.nlinks,.nbtn{display:none}
+  .hero{padding:0 24px 64px}.hphoto{width:60%;opacity:.25}.hname{font-size:52px}
+  .sec{padding:80px 24px}.agrid{grid-template-columns:1fr;gap:44px}.sgrid{grid-template-columns:1fr}
+  .pgrid .pc{grid-column:span 12 !important}.tgrd{grid-template-columns:1fr}
+  .contact{padding:100px 24px}footer{padding:32px 24px;flex-direction:column;gap:20px;text-align:center}
+  .casehero{padding:0 24px 64px;min-height:70vh}.chtitle{font-size:52px}.casebody{padding:40px 24px}
+  .mrow{grid-template-columns:1fr}.chmeta{flex-wrap:wrap;gap:24px}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="nlogo">ANB<span>.</span></a>
+  <ul class="nlinks">
+    <li><a href="#works">Work</a></li><li><a href="#about">About</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#experience">Experience</a></li><li><a href="#contact">Contact</a></li>
+  </ul>
+  <div style="display:flex;align-items:center">
+    <div class="lang-toggle">
+      <button class="lang-btn active" id="btn-en" onclick="setLang('en')">EN</button>
+      <div class="lang-sep"></div>
+      <button class="lang-btn" id="btn-nl" onclick="setLang('nl')">NL</button>
+    </div>
+    <a href="https://www.behance.net/anbazhagan48" target="_blank" class="nbtn">Behance ↗</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hgrid"></div><div class="hglow"></div>
+  <div class="hphoto"><img src="assets/inline_jpg_1.jpg" alt="Anbazhagan Selvam"></div>
+  <div class="hc">
+    <div class="heyebrow"><span class="avail"></span>&nbsp;<span id="hero-eyebrow-text">Available for Projects &nbsp;·&nbsp; Open to Work</span></div>
+    <h1 class="hname">Anba<em>zhagan</em></h1>
+    <p class="hsub" id="hero-desc-text">3D Visualiser &amp; Product Designer crafting premium visual experiences — from hyper-realistic product renders to polished digital interfaces. Based in the Netherlands.</p>
+    <div class="hacts">
+      <a href="#works" class="btnp"><span id="hero-cta-text">View Selected Work</span> <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      <a href="#contact" class="btng"><span id="hero-talk-text">Let's Talk</span></a>
+    </div>
+  </div>
+  <div class="hscroll"><div class="hline"></div><span>Scroll</span></div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="mtrack">
+    <div class="mitem"><span>3D Visualisation</span><span class="mdot"></span><span>Product Design</span><span class="mdot"></span><span>Animation</span><span class="mdot"></span><span>Motion Graphics</span><span class="mdot"></span><span>Brand Identity</span><span class="mdot"></span><span>UI Design</span><span class="mdot"></span><span>Rendering</span><span class="mdot"></span><span>Creative Direction</span><span class="mdot"></span></div>
+    <div class="mitem"><span>3D Visualisation</span><span class="mdot"></span><span>Product Design</span><span class="mdot"></span><span>Animation</span><span class="mdot"></span><span>Motion Graphics</span><span class="mdot"></span><span>Brand Identity</span><span class="mdot"></span><span>UI Design</span><span class="mdot"></span><span>Rendering</span><span class="mdot"></span><span>Creative Direction</span><span class="mdot"></span></div>
+  </div>
+</div>
+
+<!-- WORKS -->
+<section id="works" class="sec" style="background:var(--bg)">
+  <div class="wtop rv">
+    <div><div class="slabel" id="works-label">Selected Work</div><h2 class="stitle"><span id="works-title-main">Featured</span> <em id="works-title-em">Projects</em></h2></div>
+    <div class="frow">
+      <button class="fb active" onclick="fp('all',this)">All</button>
+      <button class="fb" onclick="fp('3d',this)">3D &amp; Viz</button>
+      <button class="fb" onclick="fp('product',this)">Product</button>
+      <button class="fb" onclick="fp('motion',this)">Motion</button>
+      <button class="fb" onclick="fp('brand',this)">Brand</button>
+    </div>
+  </div>
+  <div class="pgrid" id="pgrid">
+
+    <!-- ASUS ROG — video thumbnail -->
+    <div class="pc lg rv" data-cat="3d" onclick="openCase(0)">
+      <div class="pthumb">
+        <div class="pinner">
+          <div class="pbg c1"></div>
+          <video autoplay muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)">
+            <source src="assets/video_data.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="pov"></div><div class="phov">View Case Study →</div>
+      </div>
+      <div class="pinfo">
+        <div class="pmeta"><span class="ptag">3D Animation</span><span class="pyr">2024</span></div>
+        <div class="ptitle">ASUS ROG Gaming Laptop</div>
+        <div class="psum">Cinematic 3D animation showcasing hyper-realistic laptop renders with dynamic lighting and motion storytelling.</div>
+      </div>
+    </div>
+
+    <div class="pc md rv d1" data-cat="3d" onclick="openCase(1)">
+      <div class="pthumb">
+        <div class="pinner">
+          <div class="pbg c2"></div>
+          <video autoplay muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)">
+            <source src="assets/iphone_vid.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="pov"></div><div class="phov">View Case Study →</div>
+      </div>
+      <div class="pinfo">
+        <div class="pmeta"><span class="ptag">3D Animation</span><span class="pyr">2024</span></div>
+        <div class="ptitle">Smartphone Exploded View</div>
+        <div class="psum">Cinematic exploded-view animation revealing every internal component of a premium smartphone with dramatic studio lighting.</div>
+      </div>
+    </div>
+
+    <div class="pc hf rv d2" data-cat="3d" onclick="openCase(2)">
+      <div class="pthumb">
+        <div class="pinner">
+          <div class="pbg" style="background:linear-gradient(135deg,#0a0010,#1e0040,#4400cc)"></div>
+          <video autoplay muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)">
+            <source src="assets/ue5_vid.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="pov"></div><div class="phov">View Case Study →</div>
+      </div>
+      <div class="pinfo">
+        <div class="pmeta"><span class="ptag">UE5 Interactive</span><span class="pyr">2025</span></div>
+        <div class="ptitle">Unreal Engine 5 — Interactive Viz</div>
+        <div class="psum">Real-time interactive architectural visualisation with dynamic Lumen lighting, Blueprint-driven material switching, and object interaction systems.</div>
+      </div>
+    </div>
+
+    <div class="pc lg rv" data-cat="product" onclick="openCase(3)">
+      <div class="pthumb">
+        <div class="pinner">
+          <div class="pbg" style="background:linear-gradient(135deg,#050505,#0e1a0e,#1a3a1a)"></div>
+          <img src="assets/inline_jpg_2.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)" alt="The Skin Theory — Beauty Cream">
+        </div>
+        <div class="pov"></div><div class="phov">View Case Study →</div>
+      </div>
+      <div class="pinfo">
+        <div class="pmeta"><span class="ptag">Product Viz</span><span class="pyr">2025</span></div>
+        <div class="ptitle">The Skin Theory — Beauty Cream</div>
+        <div class="psum">Cinematic 3D product animation for a premium beauty cream brand — photorealistic cream texture, wood lid, luxury dark studio lighting with music.</div>
+      </div>
+    </div>
+
+    <div class="pc md rv d1" data-cat="3d" onclick="openCase(4)">
+      <div class="pthumb">
+        <div class="pinner">
+          <div class="pbg" style="background:linear-gradient(135deg,#080818,#0d1a2d,#1a2d4a)"></div>
+          <video autoplay muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)">
+            <source src="assets/inline_mp4_3.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="pov"></div><div class="phov">View Case Study →</div>
+      </div>
+      <div class="pinfo">
+        <div class="pmeta"><span class="ptag">Product Animation</span><span class="pyr">2025</span></div>
+        <div class="ptitle">Keyboard Assembly Animation</div>
+        <div class="psum">Cinematic Delta robot arm assembling a mechanical keyboard — precise IK rigging, Substance Painter texturing, Cycles rendering.</div>
+      </div>
+    </div>
+
+    <div class="pc md rv d2" data-cat="3d" onclick="openCase(5)">
+      <div class="pthumb">
+        <div class="pinner">
+          <div class="pbg" style="background:linear-gradient(135deg,#1a1200,#3a2800,#6b4500)"></div>
+          <img src="assets/kitch_render.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)" alt="Modular Kitchen Design — Final Render">
+        </div>
+        <div class="pov"></div><div class="phov">View Case Study →</div>
+      </div>
+      <div class="pinfo">
+        <div class="pmeta"><span class="ptag">Interior Design</span><span class="pyr">2026</span></div>
+        <div class="ptitle">Modular Kitchen Design — India</div>
+        <div class="psum">Full workflow from client brief to final render — CAD elevations, SketchUp 3D modelling, and photorealistic V-Ray visualisation for a modular kitchen in India.</div>
+      </div>
+    </div>
+
+    <div class="pc lg rv d1" data-cat="product" onclick="openCase(6)">
+      <div class="pthumb">
+        <div class="pinner">
+          <div class="pbg" style="background:linear-gradient(135deg,#0a0000,#1a0800,#3d1500)"></div>
+          <video autoplay muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)">
+            <source src="assets/perf_vid.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="pov"></div><div class="phov">View Case Study →</div>
+      </div>
+      <div class="pinfo">
+        <div class="pmeta"><span class="ptag">Product Viz</span><span class="pyr">2025</span></div>
+        <div class="ptitle">Perfume Bottle Visualisation</div>
+        <div class="psum">Cinematic luxury perfume bottle in Blender — cloth-simulated leather drape, high-gloss black glass, gold embossed label, Cycles studio lighting.</div>
+      </div>
+    </div>
+
+    <div class="pc md rv d1" data-cat="3d" onclick="openCase(7)">
+      <div class="pthumb">
+        <div class="pinner">
+          <div class="pbg" style="background:linear-gradient(135deg,#0a0a0a,#1a1a2e,#16213e)"></div>
+          <video autoplay muted loop playsinline preload="auto" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)">
+            <source src="assets/ap_hero.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="pov"></div><div class="phov">View Case Study →</div>
+      </div>
+      <div class="pinfo">
+        <div class="pmeta"><span class="ptag">3D Animation</span><span class="pyr">2025</span></div>
+        <div class="ptitle">AirPods — Product Animation</div>
+        <div class="psum">Cinematic 3D animation of Apple AirPods Pro — precise subdivision modelling, detailed earbud topology, animated lid-open reveal in Blender.</div>
+      </div>
+    </div>
+
+    <div class="pc hf rv" data-cat="product" onclick="openCase(8)">
+      <div class="pthumb">
+        <div class="pinner">
+          <div class="pbg" style="background:linear-gradient(135deg,#1a2200,#2d3800,#4a5c00)"></div>
+          <img src="assets/food_img.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)" alt="Food Box UX/UI Case Study">
+        </div>
+        <div class="pov"></div><div class="phov">View Case Study →</div>
+      </div>
+      <div class="pinfo">
+        <div class="pmeta"><span class="ptag">UI/UX Design</span><span class="pyr">2025</span></div>
+        <div class="ptitle">Food Box — UX/UI Case Study</div>
+        <div class="psum">End-to-end UX/UI design for a food waste reduction app — full user flow from restaurant discovery to payment confirmation.</div>
+      </div>
+    </div>
+
+    <div class="pc hf rv d1" data-cat="product" onclick="openCase(9)">
+      <div class="pthumb">
+        <div class="pinner">
+          <div class="pbg" style="background:linear-gradient(135deg,#0a0f1a,#1a2030,#2d3545)"></div>
+          <img src="assets/arch_img.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)" alt="Architectural Website UI/UX Design">
+        </div>
+        <div class="pov"></div><div class="phov">View Case Study →</div>
+      </div>
+      <div class="pinfo">
+        <div class="pmeta"><span class="ptag">UI/UX Design</span><span class="pyr">2025</span></div>
+        <div class="ptitle">Architectural Website UI/UX</div>
+        <div class="psum">Premium website UI/UX for an architectural firm — editorial photography, bold typography, confident design system.</div>
+      </div>
+    </div>
+
+    <div class="pc lg rv d1" data-cat="product" onclick="openCase(10)">
+      <div class="pthumb">
+        <div class="pinner">
+          <div class="pbg" style="background:linear-gradient(135deg,#001a00,#003300,#004d00)"></div>
+          <img src="assets/inline_jpg_2.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)" alt="Heineken 3D Visualisation — Final Render">
+        </div>
+        <div class="pov"></div><div class="phov">View Case Study →</div>
+      </div>
+      <div class="pinfo">
+        <div class="pmeta"><span class="ptag">Product Viz</span><span class="pyr">2024</span></div>
+        <div class="ptitle">Heineken — 3D Visualisation</div>
+        <div class="psum">Photorealistic Heineken can in Blender — condensation droplets, metallic shaders, multi-pass AOV render compositing, three lighting variants.</div>
+      </div>
+    </div>
+
+    <div class="pc md rv d1" data-cat="product" onclick="openCase(11)">
+      <div class="pthumb">
+        <div class="pinner">
+          <div class="pbg" style="background:linear-gradient(135deg,#1a0000,#2d0000,#4a0000)"></div>
+          <img src="assets/chair_hero.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)" alt="Gaming Chair — 3D Visualisation">
+        </div>
+        <div class="pov"></div><div class="phov">View Case Study →</div>
+      </div>
+      <div class="pinfo">
+        <div class="pmeta"><span class="ptag">Product Viz</span><span class="pyr">2024</span></div>
+        <div class="ptitle">Gaming Chair — 3D Visualisation</div>
+        <div class="psum">Photorealistic gaming chair in Blender — PBR leather materials, chrome mechanisms, studio lighting, full wireframe topology breakdown.</div>
+      </div>
+    </div>
+
+    <div class="pc hf rv d2" data-cat="3d" onclick="openCase(12)">
+      <div class="pthumb">
+        <div class="pinner">
+          <div class="pbg" style="background:linear-gradient(135deg,#1a0e00,#2d1800,#4a2800)"></div>
+          <img src="assets/cabin_bl1.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)" alt="Cozy Cabin Interior Animation">
+        </div>
+        <div class="pov"></div><div class="phov">View Case Study →</div>
+      </div>
+      <div class="pinfo">
+        <div class="pmeta"><span class="ptag">3D Animation</span><span class="pyr">2024</span></div>
+        <div class="ptitle">Cozy Cabin — Interior Animation</div>
+        <div class="psum">Cinematic 354-object cabin interior — cloth sim, procedural textures, warm atmospheric lighting, cat sculpt, Cycles rendering.</div>
+      </div>
+    </div>
+
+    <div class="pc hf rv" data-cat="product" 
+
+    <div class="pc hf rv d1" data-cat="3d" 
+
+    <div class="pc hf rv d1" data-cat="brand" onclick="openCase(13)">
+      <div class="pthumb">
+        <div class="pinner">
+          <div class="pbg" style="background:linear-gradient(135deg,#7b0070,#c8003a,#e8b000)"></div>
+          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)" src="assets/bdx_ytubs2.jpg" alt="Brandex cheese packaging">
+        </div>
+        <div class="pov"></div><div class="phov">View Case Study →</div>
+      </div>
+      <div class="pinfo">
+        <div class="pmeta"><span class="ptag">Brand &amp; Packaging</span><span class="pyr">2024</span></div>
+        <div class="ptitle">Brandex Cheese — Packaging Design</div>
+        <div class="psum">Premium 3D packaging design and product visualisation for Brandex — a multi-SKU cheese brand spanning cheddar wheels, tubs, pouches, and specialty variants.</div>
+      </div>
+    </div>
+
+    
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about" class="sec" style="background:var(--bg)">
+  <div class="agrid">
+    <div class="aimg rv">
+      <img src="assets/inline_jpg_1.jpg" alt="Anbazhagan Selvam">
+      <div class="aframe"></div><div class="ac tl"></div><div class="ac tr"></div><div class="ac bl"></div><div class="ac br"></div>
+    </div>
+    <div class="rv d2">
+      <div class="slabel" id="about-label">About Me</div>
+      <div class="atag" id="about-tag">3D Specialist · Product Designer · Creative Technologist</div>
+      <h2 class="ah2"><span id="about-h2a">Crafting form with</span> <em id="about-h2b">purpose</em> <span id="about-h2c">and precision</span></h2>
+      <p class="ap" id="about-p1">I am a highly creative and passionate product designer with a keen eye for detail and a commitment to delivering innovative solutions. I thrive on transforming ideas into tangible, user-centric products.</p>
+      <p class="ap" id="about-p2">Based in <strong style="color:var(--text)">IJsselstein, Netherlands</strong> — with experience at <strong style="color:var(--text)">RR Donnelley</strong> and <strong style="color:var(--text)">Stanley Works</strong>, I bridge technical precision with creative vision.</p>
+      <div class="exprow">
+        <div class="expitem"><div><div class="erole">3D Specialist</div><div class="eco">RR Donnelley · Netherlands</div></div><div class="eyr">2020–Present</div></div>
+        <div class="expitem"><div><div class="erole">3D Visualizer</div><div class="eco">Stanley Works · Bangalore</div></div><div class="eyr">2018–2020</div></div>
+        <div class="expitem"><div><div class="erole">Product Designer</div><div class="eco">Froq Brand Service · India</div></div><div class="eyr">2016–2018</div></div>
+      </div>
+      <div class="astats">
+        <div><div class="sn">8+</div><div class="sl" id="stat1-label">Years Experience</div></div>
+        <div><div class="sn">194</div><div class="sl" id="stat2-label">Behance Appreciations</div></div>
+        <div><div class="sn">50+</div><div class="sl" id="stat3-label">Projects Delivered</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services" class="sec" style="background:var(--bg2)">
+  <div class="svctop rv">
+    <div><div class="slabel" id="svc-label">What I Do</div><h2 class="stitle"><span id="svc-title-main">Services &amp;</span> <em id="svc-title-em">Expertise</em></h2></div>
+    <a href="#contact" class="btng" id="svc-cta">Start a Project</a>
+  </div>
+  <div class="sgrid rv d1">
+    <div class="sc"><div class="scnum">01</div><svg class="scico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="6" width="36" height="36" rx="4"/><path d="M16 24l7 7 11-14"/></svg><div class="scname" id="svc1-name">3D Visualisation</div><div class="scdesc" id="svc1-desc">Hyper-realistic product renders, architectural visualisation, and photorealistic scenes. KeyShot · V-Ray · Blender.</div></div>
+    <div class="sc"><div class="scnum">02</div><svg class="scico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><circle cx="24" cy="24" r="18"/><path d="M24 6v36M6 24h36"/></svg><div class="scname" id="svc2-name">Product Design</div><div class="scdesc" id="svc2-desc">End-to-end product design from initial concept through refined, production-ready specs — aesthetics meeting usability.</div></div>
+    <div class="sc"><div class="scnum">03</div><svg class="scico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 40L22 8l10 20 10-12 6 24"/></svg><div class="scname" id="svc3-name">Motion &amp; Animation</div><div class="scdesc" id="svc3-desc">Cinematic 3D animations, product reveals, motion graphics, and video reels that captivate audiences.</div></div>
+    <div class="sc"><div class="scnum">04</div><svg class="scico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="12" width="36" height="24" rx="3"/><path d="M16 40h16M24 36v4"/></svg><div class="scname" id="svc4-name">UI / UX Design</div><div class="scdesc" id="svc4-desc">Clean, modern interfaces with strong visual hierarchy and intuitive user flows for digital products.</div></div>
+    <div class="sc"><div class="scnum">05</div><svg class="scico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M12 38C12 24 22 10 36 10M12 10l28 28"/><circle cx="12" cy="10" r="4"/><circle cx="36" cy="10" r="4"/><circle cx="12" cy="38" r="4"/></svg><div class="scname" id="svc5-name">Brand Identity</div><div class="scdesc" id="svc5-desc">Complete visual identity systems — logos, colour, typography, and guidelines that build lasting recognition.</div></div>
+    <div class="sc"><div class="scnum">06</div><svg class="scico" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="8" y="8" width="14" height="14" rx="2"/><rect x="26" y="8" width="14" height="14" rx="2"/><rect x="8" y="26" width="14" height="14" rx="2"/><rect x="26" y="26" width="14" height="14" rx="2"/></svg><div class="scname" id="svc6-name">Creative Direction</div><div class="scdesc" id="svc6-desc">Art direction and creative strategy for campaigns, editorial shoots, and visual storytelling projects.</div></div>
+  </div>
+</section>
+
+<!-- TOOLS -->
+<!-- EXPERIENCE -->
+<section id="experience" class="exp-section">
+  <div class="slabel rv" id="exp-label">Work Experience</div>
+  <h2 class="stitle rv" style="margin-bottom:0"><span id="exp-title-main">Professional</span> <em id="exp-title-em">Journey</em></h2>
+  <div class="exp-timeline">
+
+    <div class="exp-entry rv">
+      <div class="exp-left">
+        <div class="exp-period">2021 — 2025</div>
+        <div class="exp-co">R R Donnelley</div>
+        <div class="exp-loc">Chennai, India → Netherlands</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role">3D Visualisation &amp; <em>Packaging Design Engineer</em></div>
+        <ul class="exp-bullets">
+          <li>Contributed to two specialised teams delivering high-impact solutions for global clients</li>
+          <li>Created high-quality, optimised 3D models for e-commerce platforms supporting AR/VR product previews for Amazon &amp; Walmart</li>
+          <li>Focused on real-time performance, texture optimisation, and virtual merchandising tailored to U.S. retail requirements</li>
+          <li>Designed and developed sustainable, manufacturable packaging solutions for Apple using Siemens NX</li>
+          <li>Created precise 3D models and 2D dielines from scratch with focus on plastic elimination and sustainable materials</li>
+          <li>Collaborated with RRD China for CAD integration and managed vendor coordination from concept through production</li>
+          <li>Applied Agile methodologies to ensure timely delivery and quality execution</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag-pill">Blender</span>
+          <span class="exp-tag-pill">Siemens NX</span>
+          <span class="exp-tag-pill">AR/VR</span>
+          <span class="exp-tag-pill">Packaging</span>
+          <span class="exp-tag-pill">Amazon</span>
+          <span class="exp-tag-pill">Walmart</span>
+          <span class="exp-tag-pill">Apple</span>
+          <span class="exp-tag-pill">Agile</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-entry rv">
+      <div class="exp-left">
+        <div class="exp-period">2019 — 2021</div>
+        <div class="exp-co">Froq Brand Service</div>
+        <div class="exp-loc">India</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role">Senior <em>3D Product Visualiser</em></div>
+        <ul class="exp-bullets">
+          <li>Collaborated with a Netherlands-based team to produce photorealistic 3D product visuals for Albert Heijn's online platform, enhancing digital merchandising and customer engagement</li>
+          <li>Created accurate 3D models from product references, integrating packaging artwork dielines while maintaining brand consistency</li>
+          <li>Applied textures and materials aligned with brand guidelines ensuring cohesive, high-quality presentation across digital touchpoints</li>
+          <li>Led product visualisation and branding projects across diverse industries — from tech startups to established businesses</li>
+          <li>Delivered high-quality 3D product renders, brand identity systems, and visual design assets for a wide range of clients</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag-pill">3D Visualisation</span>
+          <span class="exp-tag-pill">Albert Heijn</span>
+          <span class="exp-tag-pill">Netherlands Collab</span>
+          <span class="exp-tag-pill">Product Renders</span>
+          <span class="exp-tag-pill">Dielines</span>
+          <span class="exp-tag-pill">Brand Guidelines</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="exp-entry rv">
+      <div class="exp-left">
+        <div class="exp-period">2016 — 2018</div>
+        <div class="exp-co">Sutherland Global Services</div>
+        <div class="exp-loc">India</div>
+      </div>
+      <div class="exp-right">
+        <div class="exp-role"><em>3D Artist</em></div>
+        <ul class="exp-bullets">
+          <li>Created high-quality 3D models for e-commerce products across multiple categories</li>
+          <li>Collaborated with marketing teams to ensure models met product specifications and brand standards</li>
+        </ul>
+        <div class="exp-tags">
+          <span class="exp-tag-pill">3D Modelling</span>
+          <span class="exp-tag-pill">E-commerce</span>
+          <span class="exp-tag-pill">Product Viz</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHAT I DO -->
+<section class="wido-section">
+  <div class="slabel rv" id="wido-label">Disciplines</div>
+  <h2 class="stitle rv" style="margin-bottom:0"><span id="wido-title-main">What I</span> <em id="wido-title-em">Do</em></h2>
+  <div class="wido-grid rv d1">
+    <div class="wido-card">
+      <div class="wido-num">01</div>
+      <svg class="wido-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M8 36L22 8l14 28M11 29h22"/></svg>
+      <div class="wido-title" id="wido1-title">3D Generalist</div>
+      <div class="wido-desc" id="wido1-desc">Versatile 3D Generalist skilled in modelling, texturing, rigging, lighting, and animation across diverse projects, with experience in both real-time and pre-rendered workflows.</div>
+    </div>
+    <div class="wido-card">
+      <div class="wido-num">02</div>
+      <svg class="wido-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="6" y="10" width="32" height="24" rx="3"/><circle cx="22" cy="22" r="6"/><circle cx="22" cy="22" r="2"/></svg>
+      <div class="wido-title" id="wido2-title">Visual Design</div>
+      <div class="wido-desc" id="wido2-desc">Proficient in creating visually compelling designs that align with brand identity and aesthetics — from print to digital, editorial to packaging.</div>
+    </div>
+    <div class="wido-card">
+      <div class="wido-num">03</div>
+      <svg class="wido-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2"><path d="M6 22c0-4 4-8 10-8s10 4 10 4-4 8-10 8S6 26 6 22z"/><circle cx="16" cy="22" r="3"/><path d="M28 14l4-4M28 30l4 4M36 22h-6"/></svg>
+      <div class="wido-title" id="wido3-title">Generative AI Artist</div>
+      <div class="wido-desc" id="wido3-desc">Using AI tools and techniques to generate creative 3D assets and textures — Meshy AI, 3D AI Studio — integrated into professional production pipelines.</div>
+    </div>
+    <div class="wido-card">
+      <div class="wido-num">04</div>
+      <svg class="wido-icon" viewBox="0 0 44 44" fill="none" stroke="currentColor" stroke-width="1.2"><rect x="8" y="12" width="28" height="20" rx="2"/><path d="M14 32v4h16v-4M14 12V8h16v4"/><path d="M18 20h8M18 24h4"/></svg>
+      <div class="wido-title" id="wido4-title">Packaging Design Engineer</div>
+      <div class="wido-desc" id="wido4-desc">Designs and develops innovative, cost-effective, and functional packaging solutions ensuring product protection, regulatory compliance, and ease of manufacturing.</div>
+    </div>
+  </div>
+</section>
+<div class="toolsec">
+  <div class="slabel rv" id="tools-label">Tools &amp; Workflow</div>
+  <div class="tgrid rv d1">
+    <div class="tp">Blender</div><div class="tp">Cinema 4D</div><div class="tp">KeyShot</div><div class="tp">V-Ray</div>
+    <div class="tp">Octane Render</div><div class="tp">Substance 3D</div><div class="tp">Figma</div><div class="tp">Photoshop</div>
+    <div class="tp">Illustrator</div><div class="tp">After Effects</div><div class="tp">Premiere Pro</div><div class="tp">3ds Max</div>
+    <div class="tp">ZBrush</div><div class="tp">Unreal Engine</div><div class="tp">Marvelous Designer</div>
+  </div>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="tsec rv">
+  <div class="slabel" id="testi-label">Client Feedback</div>
+  <h2 class="stitle"><span id="testi-title-main">What clients</span> <em id="testi-title-em">say</em></h2>
+  <div class="tgrd">
+    <div class="tc rv"><div class="tcstars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div><div class="tcq">Anbazhagan delivered exactly what we envisioned. The renders look more real than our actual product photography — stunning work.</div><div class="tcn">Product Manager</div><div class="tcr">ASUS ROG India</div></div>
+    <div class="tc rv d1"><div class="tcstars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div><div class="tcq">The renders are indistinguishable from real photography. Clients are blown away every time we present them.</div><div class="tcn">Creative Director</div><div class="tcr">Studio Client, Bangalore</div></div>
+    <div class="tc rv d2"><div class="tcstars"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div><div class="tcq">The renders sold three apartments before the building broke ground. An extraordinary talent who truly understands visual storytelling.</div><div class="tcn">Director</div><div class="tcr">Real Estate Developer</div></div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="contact rv">
+  <div class="cinner">
+    <div class="slabel" style="justify-content:center" id="contact-label">Get In Touch</div>
+    <h2 class="stitle" style="font-size:clamp(52px,7.5vw,108px)"><span id="contact-title-main">Let's create something</span> <em id="contact-title-em">remarkable</em></h2>
+    <p class="csub" id="contact-sub">Available for freelance projects, full-time roles, and creative collaborations. Based in the Netherlands — open to remote work globally.</p>
+    <div class="availrow"><span class="avail"></span> Available &nbsp;·&nbsp; IJsselstein, Netherlands (GMT+1)</div>
+    <div class="clrow">
+      <a href="mailto:anbazhagan@email.com" class="cl"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 4l6 5 6-5M2 4h12v8H2z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></svg><span id="contact-email">Email Me</span></a>
+      <a href="https://www.linkedin.com/in/anbazhagan-selvam-b9b54a115" target="_blank" class="cl"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="currentColor" stroke-width="1.2"/><path d="M5 7v4M5 5v.5M8 11V8.5c0-1 .5-1.5 1.5-1.5S11 7.5 11 8.5V11" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><span id="contact-li">LinkedIn ↗</span></a>
+      <a href="https://www.behance.net/anbazhagan48" target="_blank" class="cl"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M2 5h5.5c1.38 0 2.5.9 2.5 2s-.9 1.5-1.5 1.7c.8.2 2 .8 2 2.3 0 1.5-1.3 2-2.8 2H2V5z" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/><path d="M10 6h4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg><span id="contact-be">Behance ↗</span></a>
+    </div>
+  </div>
+</section>
+
+<div style="height:1px;background:linear-gradient(90deg,var(--accent),transparent)"></div>
+<footer>
+  <div class="fc" id="footer-copy">© 2025 Anbazhagan Selvam · All Rights Reserved · IJsselstein, NL</div>
+  <div class="fl"><a href="#works">Work</a><a href="#about">About</a><a href="https://www.behance.net/anbazhagan48" target="_blank">Behance</a><a href="https://www.linkedin.com/in/anbazhagan-selvam-b9b54a115" target="_blank">LinkedIn</a></div>
+</footer>
+
+<!-- CASE STUDY OVERLAY -->
+<div class="caseov" id="caseov">
+  <div class="caseclose" onclick="closeCase()">✕</div>
+  <div class="casehero" id="casehero">
+    <div class="chbg" id="chbg"></div>
+    <div class="chgrid"></div>
+    <div class="chc">
+      <div class="chtag" id="chtag"></div>
+      <h1 class="chtitle" id="chtitle"></h1>
+      <p class="chsub" id="chsub"></p>
+      <div class="chmeta">
+        <div><div class="cml">Year</div><div class="cmv" id="chy"></div></div>
+        <div><div class="cml">Role</div><div class="cmv" id="chr"></div></div>
+        <div><div class="cml">Tools</div><div class="cmv" id="cht"></div></div>
+        <div><div class="cml">Client</div><div class="cmv" id="chcl"></div></div>
+      </div>
+    </div>
+  </div>
+  <div class="casebody" id="casebody"></div>
+</div>
+
+<script>
+const VIDEO_DATA = "assets/video_data.mp4";
+const ASUS_IMG   = "assets/asus_img.png";
+const IPHONE_FINAL = "assets/iphone_final.png";
+const BDX_CHEDDAR   = "assets/bdx_cheddar.jpg";
+const BDX_HOLANDES  = "assets/bdx_holandes.jpg";
+const BDX_BUFARELINI= "assets/bdx_bufarelini.jpg";
+const BDX_MOZZ     = "assets/bdx_mozz.jpg";
+const BDX_YTUBS    = "assets/bdx_ytubs.jpg";
+const BDX_YTUBS2   = "assets/bdx_ytubs2.jpg";
+const BDX_WIRE1    = "assets/bdx_wire1.jpg";
+const BDX_WIRE2    = "assets/bdx_wire2.jpg";
+const BDX_WIRE3    = "assets/bdx_wire3.jpg";
+const IPHONE_IMG1 = "assets/iphone_img1.png";
+const IPHONE_IMG2 = "assets/iphone_img2.png";
+const IPHONE_IMG3 = "assets/iphone_img3.png";
+const IPHONE_VID  = "assets/iphone_vid.mp4";
+const UE5_VID  = "assets/ue5_vid.mp4";
+const UE5_BP1  = "assets/ue5_bp1.jpg";
+const UE5_BP2  = "assets/ue5_bp2.jpg";
+const UE5_BP3  = "assets/ue5_bp3.jpg";
+const SKIN_HERO   = "assets/skin_hero.mp4";
+const SKIN_BD1    = "assets/skin_bd1.mp4";
+const SKIN_COMP1  = "assets/skin_comp1.mp4";
+const SKIN_COMP2  = "assets/skin_bd2.mp4";
+const SKIN_RENDER = "assets/skin_clay.jpg";
+const SKIN_IMG2  = "assets/skin_clay.jpg";
+const KB_HERO  = "assets/kb_hero.mp4";
+const KB_BD    = "assets/kb_bd.mp4";
+const KB_IMG1  = "assets/kb_img1.jpg";
+const KB_IMG2  = "assets/kb_img2.jpg";
+const KB_IMG3  = "assets/kb_img3.jpg";
+const KB_IMG4  = "assets/kb_img4.jpg";
+const KITCH_RENDER   = "assets/kitch_render.jpg";
+const KITCH_CAD      = "assets/kitch_cad.jpg";
+const KITCH_SKETCHUP = "assets/kitch_sketchup.jpg";
+const PERF_VID    = "assets/perf_vid.mp4";
+const PERF_RENDER = "assets/perf_render.jpg";
+const PERF_SHADER = "assets/perf_shader.jpg";
+const PERF_WIRE   = "assets/perf_wire.jpg";
+const AP_HERO   = "assets/ap_hero.mp4";
+const AP_BD     = "assets/ap_bd.mp4";
+const AP_WIRE1  = "assets/ap_wire1.jpg";
+const AP_WIRE2  = "assets/ap_wire2.jpg";
+const FOOD_IMG  = "assets/food_img.jpg";
+const ARCH_IMG  = "assets/arch_img.jpg";
+const KITCH_SKETCH   = "assets/kitch_sketch.jpg";
+const SKIN_BD2  = "assets/skin_bd2.mp4";
+const SKIN_BD3  = "assets/skin_bd3.mp4";
+const SKIN_CLAY   = "assets/skin_clay.jpg";
+
+window.addEventListener("scroll",()=>{document.getElementById("nav").classList.toggle("s",scrollY>60)});
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add("in")}),{threshold:.08});
+document.querySelectorAll(".rv").forEach(el=>obs.observe(el));
+
+function fp(cat,btn){
+  document.querySelectorAll(".fb").forEach(b=>b.classList.remove("active"));btn.classList.add("active");
+  document.querySelectorAll(".pc").forEach(c=>{const s=cat==="all"||c.dataset.cat===cat;c.style.opacity=s?"1":"0.15";c.style.pointerEvents=s?"auto":"none";c.style.transition="opacity .35s"});
+}
+
+const P=[
+  {tag:"3D Animation",title:"ASUS ROG Gaming Laptop",sub:"Cinematic 3D animation project showcasing hyper-realistic laptop renders with dramatic lighting and precision motion.",
+   year:"2024",role:"3D Artist & Animator",tools:"Blender · Cycles · After Effects",client:"ASUS ROG",
+   bg:"linear-gradient(135deg,#0f0800,#2a1500,#4a2800)",hasVideo:true,
+   ov:"A cinematic product animation for the ASUS ROG gaming laptop line — designed to showcase premium build quality and performance through immersive 3D animation used in marketing campaigns across India.",
+   ch:"Creating photorealistic materials — especially the brushed aluminium chassis, RGB keyboard backlighting, and subtle screen reflections — while maintaining cinematic motion quality within tight project timelines.",
+   pr:"Starting with official reference photography and CAD data, I modelled the laptop in Blender with precise measurements. Developed a PBR material library for each surface. Multiple camera paths were animated to create a dramatic reveal sequence.",
+   so:"The final animation features eight key shots: a dramatic lid-open hero reveal, close-up material showcases of the chassis and keyboard, a 360° orbit, and performance-mode lighting transitions.",
+   metrics:[{n:"4K",l:"Render Resolution"},{n:"240",l:"Frames Animated"},{n:"98%",l:"Client Satisfaction"}],
+   pal:["#0f0800","#2a1500","#4a2800","#c8a96e","#f0ede8"],
+   q:"Anbazhagan delivered exactly what we envisioned — the renders look more real than our product photos.",author:"Product Manager, ASUS ROG India"},
+  {tag:"3D Animation",title:"Smartphone Exploded View",sub:"Cinematic exploded-view 3D animation revealing every internal component of a premium smartphone with dramatic studio lighting and material precision.",
+   year:"2024",role:"3D Artist & Animator",tools:"Blender · Eevee · Cycles · Substance 3D",client:"Personal Project",
+   bg:"linear-gradient(135deg,#001020 0%,#002040 50%,#003366 100%)",hasVideo:false,isIphone:true,
+   ov:"A detailed exploded-view 3D animation of a premium smartphone — designed to showcase internal components, material quality, and engineering precision. Built entirely in Blender with Eevee and Cycles rendering.",
+   ch:"Modelling every internal component accurately while maintaining visual clarity during the explosion sequence. Achieving photorealistic gold-brushed metal and glass materials that read correctly under dramatic stage lighting.",
+   pr:"Began with reference teardown photography to map component positions. Built individual parts as separate mesh objects to allow keyframed explosion animation. Developed a node-based material system in Blender Shader Editor for the brushed metal chassis and tempered glass panels.",
+   so:"The final animation features a smooth component separation sequence with each part floating into position under cinematic lighting. A split-screen shows exterior vs interior simultaneously. The material shading uses Principled BSDF with custom texture nodes for the K X10 branding emboss.",
+   metrics:[{n:"250",l:"Frames Animated"},{n:"15+",l:"Internal Components"},{n:"4K",l:"Render Output"}],
+   pal:["#001020","#002040","#c8a020","#1a1a1a","#e8e8e8"],
+   q:"The exploded view perfectly communicates our device's engineering precision — this is exactly how we wanted to present our product.",author:"Product Lead, K X10 Project"},
+  {tag:"Interactive Viz",title:"Unreal Engine 5 — Interactive Visualisation",sub:"Real-time interactive 3D architectural visualisation built in Unreal Engine 5.6 — featuring dynamic lighting systems, material switching, object interaction blueprints, and a fully scripted UI.",
+   year:"2025",role:"UE5 Developer & 3D Artist",tools:"Unreal Engine 5.6 · Blueprints · Lumen · Nanite · Substance 3D",client:"Personal Project",
+   bg:"linear-gradient(135deg,#0a0010 0%,#120020 50%,#1e0040 100%)",hasVideo:false,isIphone:false,isTea:false,isBrandex:false,isUE5:true,
+   ov:"A fully interactive real-time architectural visualisation built in Unreal Engine 5.6. The project demonstrates advanced Blueprint scripting — including proximity-based light toggling, clickable UI material swapping, widget visibility systems, and object interaction interfaces — all rendered with Lumen global illumination.",
+   ch:"Building a believable real-time environment with photorealistic lighting while maintaining interactive performance. The key challenges were designing Blueprint logic for dynamic light control across multiple objects, creating a clean UI-driven material system, and implementing a reusable interaction interface pattern using BPI (Blueprint Interface).",
+   pr:"Started with environment layout and static mesh placement, then built the Blueprint architecture in layers: first the proximity-based overlap events for light triggering, then the BP_Menu material switching system using actor tags, and finally the widget interaction system using BPI_ObjectInteract for scalable actor communication.",
+   so:"Delivered a polished real-time scene featuring: dynamic room lighting triggered by player proximity (BP_MultipleObjects), a UI menu system that swaps floor/wall/furniture materials live (BP_Menu), and an object interaction system that shows/hides context widgets on approach (BP_Cone + BPI). All systems are modular and reusable.",
+   metrics:[{n:"UE 5.6",l:"Engine Version"},{n:"3",l:"Blueprint Systems"},{n:"Real-Time",l:"Lumen GI Render"}],
+   pal:["#0a0010","#1e0040","#4400cc","#00aaff","#f0ede8"],
+   q:"The Blueprint architecture is clean and modular — exactly the kind of interactive system we need for our client presentations.",author:"Creative Director, Architecture Studio"},
+  {tag:"Product Viz",title:"The Skin Theory — Beauty Cream Visualisation",sub:"Cinematic 3D product animation for The Skin Theory — a premium beauty cream brand. Photorealistic cream texture, wood-finish lid material, and luxury dark studio lighting, built entirely in Blender with Cycles rendering.",
+   year:"2025",role:"3D Visualiser & Motion Artist",tools:"Blender · Cycles · After Effects · Substance 3D",client:"The Skin Theory (Freelance)",
+   bg:"linear-gradient(135deg,#050505 0%,#0e1a0e 50%,#1a3a1a 100%)",hasVideo:false,isIphone:false,isTea:false,isBrandex:false,isUE5:false,isSkin:true,
+   ov:"A premium cinematic 3D product visualisation for The Skin Theory — a luxury skincare brand. The project involved modelling the cream jar and wooden lid from scratch, sculpting the cream texture, developing photorealistic Cycles materials, and compositing a full animation with branded motion and music.",
+   ch:"Achieving believable cream texture that reads as soft, fresh, and luxurious under dark studio lighting. The wood-grain lid material needed to feel warm and tactile against the deep green glass jar — both requiring custom PBR node setups in Blender's shader editor.",
+   pr:"Step 1: Modelled the jar, lid, and cream in Blender using subdivision modelling for the glass container and a sculpted mesh for the cream surface. Step 2: Developed materials — glass with subsurface scattering for the green jar, procedural wood grain nodes for the lid, and a SSS cream shader. Step 3: HDRI studio lighting with area lights for key/fill/rim. Step 4: Animated camera orbits and lid-open sequence. Step 5: Composited in After Effects with colour grading, glow, and branded motion.",
+   so:"Delivered a cinematic 10-second hero animation, two short composition loops for social media, and a full set of 4K still renders. The dark luxury aesthetic communicates premium positioning instantly — used by the brand for launch campaigns.",
+   metrics:[{n:"4K",l:"Render Output"},{n:"10s",l:"Hero Animation"},{n:"Cycles",l:"Render Engine"}],
+   pal:["#050505","#1a3a1a","#2d5a2d","#c8a96e","#f5f0e8"],
+   q:"The render looks more expensive than our actual product photography. We used it for our entire launch campaign.",author:"Founder, The Skin Theory (Freelance)"},
+  {tag:"Product Animation",title:"Assembling the Keyboard — Product Animation",sub:"Cinematic 3D product animation of a mechanical keyboard assembly sequence — featuring a Delta-style robot arm assembling the keyboard, built with precision modelling in Blender and texturing in Substance Painter.",
+   year:"2025",role:"3D Artist & Motion Designer",tools:"Blender · Cycles · Substance Painter · After Effects",client:"Personal Project",
+   bg:"linear-gradient(135deg,#080818 0%,#0d1a2d 50%,#1a2d4a 100%)",hasVideo:false,isIphone:false,isTea:false,isBrandex:false,isUE5:false,isSkin:false,isKeyboard:true,
+   ov:"A cinematic product animation showcasing a mechanical keyboard assembly sequence — a Delta-style parallel robot arm precisely placing and assembling keycaps on a full mechanical keyboard. Built entirely in Blender with fully procedural materials and detailed IK rigging for the robotic arm.",
+   ch:"The core technical challenge was building a functional IK rig for the Delta-style parallel robot arm — ensuring all three arms maintain correct parallel geometry during motion. Simultaneously, texturing hundreds of individual keycaps with correct alphanumeric labels in Substance Painter required a systematic UV and bake pipeline.",
+   pr:"Step 1: Modelled the full keyboard chassis and individual keycaps with clean topology. Step 2: Built the Delta robot arm with accurate parallel linkage geometry and IK constraints in Blender. Step 3: UV unwrapped and baked in Substance Painter — metallic keycap housing, RGB lighting materials, and cable textures. Step 4: Rigged the arm motion with keyframed IK targets following the keycap placement path. Step 5: Rendered in Cycles with depth-of-field and volumetric lighting for a cinematic studio feel.",
+   so:"Delivered a 20-second cinematic assembly animation showing the Delta robot arm systematically placing keycaps — each placement timed with precision. The final render features dramatic depth of field, warm RGB accent lighting from the keyboard, and photorealistic metal and plastic materials.",
+   metrics:[{n:"20s",l:"Animation Length"},{n:"Cycles",l:"Render Engine"},{n:"4K",l:"Output Resolution"}],
+   pal:["#080818","#0d1a2d","#1a2d4a","#c8a96e","#00aaff"],
+   q:"The keyboard assembly animation is jaw-dropping — the robot arm motion feels completely real and the final render is cinematic.",author:"Creative Director, Tech Client"},
+  {tag:"Interior Design",title:"Modular Kitchen Design — Client Project India",sub:"Full interior design workflow for a modular straight-line kitchen in India — from client brief and concept sketching to CAD technical drawings, SketchUp 3D modelling, and final photorealistic render.",
+   year:"2026",role:"Interior Designer & 3D Visualiser",tools:"SketchUp · AutoCAD · V-Ray · Photoshop",client:"Residential Client · India",
+   bg:"linear-gradient(135deg,#1a1200 0%,#3a2800 50%,#6b4500 100%)",hasVideo:false,isIphone:false,isTea:false,isBrandex:false,isUE5:false,isSkin:false,isKeyboard:false,isKitchen:true,
+   ov:"A complete interior design project for a modular straight-line kitchen in India — covering the full professional workflow from initial client consultation and concept sketching through technical CAD elevation drawings, SketchUp 3D space modelling, and a final photorealistic V-Ray render. The kitchen features gloss mustard lower units, matte charcoal upper cabinets, a mosaic tile backsplash, and integrated appliances across a 4800mm run.",
+   ch:"The client wanted a bold, modern kitchen in a tight linear layout — balancing strong colour contrast (yellow gloss vs charcoal matte) with practical zoning for wash, cooking, and storage. The technical challenge was fitting integrated appliances, a tall pantry unit, and a French door fridge within the 4800mm run while maintaining clearance and ergonomic workflow.",
+   pr:"Step 1: Client briefing and concept sketching — hand sketches with material notes capturing the gloss finish, matte cabinets, mosaic detail, and appliance placement. Step 2: Technical elevation drawing in CAD — dimensioned front elevation at 1:25 scale with zone labelling (wash zone, cooking zone/hob, BI oven, fridge). Step 3: SketchUp 3D modelling — wireframe cabinet component layout with upper dark units and lower mustard base in production geometry. Step 4: Material and lighting refinement — V-Ray materials for gloss lacquer, matte laminate, granite worktop, and mosaic tiles. Step 5: Final photorealistic render with natural light from the balcony window.",
+   so:"Delivered a complete design package including hand concept sketch, A4 CAD elevation drawing (K-MOD-2026), SketchUp 3D model, and a photorealistic final render. The client approved the design in one round — the render was used directly for contractor briefing and kitchen manufacturing.",
+   metrics:[{n:"4800mm",l:"Kitchen Run"},{n:"1",l:"Approval Round"},{n:"4K",l:"Final Render"}],
+   pal:["#1a1200","#d4a800","#2c2c2c","#e8d5a0","#f5f0e8"],
+   q:"The render looked exactly like what we wanted — we handed it straight to the manufacturer. No changes needed.",author:"Residential Client, Bangalore, India"},
+  {tag:"Product Viz",title:"Perfume Bottle Visualisation — Blender",sub:"Cinematic luxury perfume bottle visualisation built in Blender — featuring a cloth-simulated leather drape background, high-gloss black glass material, gold embossed label, and photorealistic Cycles studio lighting.",
+   year:"2025",role:"3D Artist & Lighting Designer",tools:"Blender · Cycles · Cloth Simulation · Shader Nodes",client:"Personal Project",
+   bg:"linear-gradient(135deg,#0a0000 0%,#1a0800 50%,#3d1500 100%)",hasVideo:false,isIphone:false,isTea:false,isBrandex:false,isUE5:false,isSkin:false,isKeyboard:false,isKitchen:false,isPerfume:true,
+   ov:"A premium cinematic product visualisation of a luxury perfume bottle — built entirely in Blender using Cycles rendering. The project features a cloth-simulated leather drape as the hero background material, a high-gloss black glass bottle with gold embossed branding, and dramatic studio lighting to create a dark, sensual, luxury aesthetic.",
+   ch:"The primary challenge was achieving the convincing leather cloth drape background — requiring Blender's cloth simulation to produce natural folds and creases around the bottle base, combined with a photorealistic PBR leather shader built from albedo, roughness, normal, and displacement maps. Simultaneously, the bottle's high-gloss black glass needed to read clearly without losing form in the dark environment.",
+   pr:"Step 1: Modelled the perfume bottle — clean topology, subdivision surface, glass body with recessed label panel and cap. Step 2: Cloth simulation — a subdivided plane with collision physics baked around the bottle base to create the leather drape folds. Step 3: Built the leather PBR material in Blender's shader node editor — Texture Coordinate → Mapping → Albedo/Roughness/Normal/Displacement maps → Principled BSDF. Step 4: Studio lighting — three-point HDRI + area lights for key/fill/rim on the dark background. Step 5: Final Cycles render with depth of field and colour grading.",
+   so:"Delivered a cinematic square-format hero render and a short animation reel. The deep amber leather against the matte black bottle creates an instantly premium, editorial feel — used as a portfolio showcase piece and brand pitch visual.",
+   metrics:[{n:"Cycles",l:"Render Engine"},{n:"4K",l:"Output Quality"},{n:"PBR",l:"Leather Material"}],
+   pal:["#0a0000","#3d1500","#8b3a00","#c8a96e","#1a1a1a"],
+   q:"The leather simulation and bottle material look completely real — one of the most convincing product renders I have seen from a 3D generalist.",author:"Creative Director, Fragrance Brand"},
+  {tag:"3D Animation",title:"AirPods — Product Animation",sub:"Cinematic 3D animation of Apple AirPods Pro with charging case — precise subdivision surface modelling, detailed earbud topology, PBR materials, and smooth animated reveal sequence built in Blender.",
+   year:"2025",role:"3D Artist & Animator",tools:"Blender · Cycles · Subdivision Modelling",client:"Personal Project",
+   bg:"linear-gradient(135deg,#0a0a0a 0%,#1a1a2e 50%,#16213e 100%)",hasVideo:false,isIphone:false,isTea:false,isBrandex:false,isUE5:false,isSkin:false,isKeyboard:false,isKitchen:false,isPerfume:false,isAirpod:true,
+   ov:"A cinematic 3D product animation of Apple AirPods Pro with charging case, built entirely in Blender. The project demonstrates advanced subdivision surface modelling for both the rounded charging case and the organic earbud form — capturing the exact proportions, hinge detail, and charging port of the real product.",
+   ch:"Accurately modelling the AirPods earbud form required careful topology planning — the stem-to-ear-tip transition uses complex edge loops to maintain clean subdivision. The charging case hinge and lid-open animation needed precise geometry to avoid pinching or deformation during the animated reveal.",
+   pr:"Step 1: Modelled the charging case body — rounded rectangular form with inset lid seam, hinge detail, and charging port. Step 2: Modelled the earbud — organic bulb body, stem, ear tip, and microphone mesh. Step 3: Applied subdivision surface modifiers and refined edge loop density at all transitions. Step 4: Set up PBR materials — white plastic with subtle roughness variation, polished plastic for the case interior. Step 5: Animated lid-open sequence with camera orbital reveal.",
+   so:"Delivered a smooth animated product reveal showing the charging case opening to reveal both earbuds — a clean, Apple-style cinematic product animation used as a portfolio demonstration of precision modelling and product animation skills.",
+   metrics:[{n:"Sub-D",l:"Modelling Method"},{n:"Cycles",l:"Render Engine"},{n:"4K",l:"Output Quality"}],
+   pal:["#0a0a0a","#1a1a2e","#f5f5f7","#e8e8ea","#333333"],
+   q:"The AirPods model accuracy is remarkable — every surface transition and proportional detail matches the real product.",author:"Creative Director, Tech Studio"},
+  {tag:"UI/UX Design",title:"Food Box — UX/UI Case Study",sub:"End-to-end UX/UI design for a food waste reduction app — allowing users to purchase surplus food from local restaurants at discounted prices. Full user flow from discovery to payment confirmation.",
+   year:"2025",role:"UX/UI Designer",tools:"Figma · Prototyping · User Research",client:"Behance Portfolio Project",
+   bg:"linear-gradient(135deg,#1a2200 0%,#2d3800 50%,#4a5c00 100%)",hasVideo:false,isIphone:false,isTea:false,isBrandex:false,isUE5:false,isSkin:false,isKeyboard:false,isKitchen:false,isPerfume:false,isAirpod:false,isFoodBox:true,
+   ov:"Food Box is a UX/UI case study for a food waste reduction app — connecting users with local restaurants selling surplus meals at reduced prices. The project covers the complete user journey: restaurant discovery, surprise bag selection, payment (UPI/Card/Cash), and order confirmation with a food-saved celebration screen.",
+   ch:"Designing an intuitive flow for a concept where users buy a 'mystery bag' — they see the restaurant and bag category but not exact items. The UX challenge was building trust and excitement around uncertainty while making the checkout flow as frictionless as possible.",
+   pr:"Conducted user research to map the key friction points in food waste apps. Designed wireframes for the home discovery feed, bag detail page, quantity selector, payment options, and success screen. Iterated on the typography, colour hierarchy, and CTA button design through multiple rounds of testing.",
+   so:"Delivered a complete high-fidelity prototype covering 5 key screens — Home, Bag Detail, Cart, Payment, and Confirmation. The warm amber/yellow palette reinforces the food and warmth theme while maintaining accessibility contrast ratios.",
+   metrics:[{n:"5",l:"Key Screens"},{n:"Figma",l:"Design Tool"},{n:"Full Flow",l:"End-to-End UX"}],
+   pal:["#1a2200","#f5a800","#ffffff","#333333","#4caf50"],
+   q:"The Food Box UX flow is clear and warm — the mystery bag concept comes through perfectly without creating confusion.",author:"UX Reviewer, Behance"},
+  {tag:"UI/UX Design",title:"Architectural Website — UI/UX Design",sub:"Premium website UI/UX design for an architectural firm — clean, bold typography, editorial photography integration, and a confident design system reflecting the architectural brand identity.",
+   year:"2025",role:"UI/UX Designer",tools:"Figma · Prototyping · Typography Systems",client:"Behance Portfolio Project",
+   bg:"linear-gradient(135deg,#0a0f1a 0%,#1a2030 50%,#2d3545 100%)",hasVideo:false,isIphone:false,isTea:false,isBrandex:false,isUE5:false,isSkin:false,isKeyboard:false,isKitchen:false,isPerfume:false,isAirpod:false,isFoodBox:false,isArchUI:true,
+   ov:"A premium UI/UX design for an architectural firm's website — featuring a bold editorial layout with the firm's identity mark, cinematic building photography, and a confident typographic system. The design positions the firm as a high-end, modern architectural practice.",
+   ch:"Balancing photographic impact with strong typography on a hero that needs to communicate scale, precision, and prestige. The architectural photography needed to feel curated rather than stock, and the type hierarchy needed to be bold enough to compete with the building imagery.",
+   pr:"Developed a design system starting with the wordmark and primary typeface. Created the hero layout with a large-format architectural photograph, overlay typography, and navigation. Designed the full site architecture including project grid, about, services, and contact sections.",
+   so:"Delivered a complete website UI design with a confident visual identity — the angular 'A' mark echoing architectural geometry, bold sans-serif headlines, and a restrained monochrome palette with subtle warm tones for accent moments.",
+   metrics:[{n:"Figma",l:"Design Tool"},{n:"Editorial",l:"Design Style"},{n:"Full Site",l:"UI System"}],
+   pal:["#0a0f1a","#2d3545","#f5f5f5","#333333","#e8e0d0"],
+   q:"The architectural website design feels premium and confident — exactly the level of sophistication our firm needs to present.",author:"Principal Architect, Client"},
+  {tag:"Product Viz",title:"Heineken — 3D Visualisation Project",sub:"Photorealistic 3D visualisation of the Heineken 500ml can built in Blender — featuring condensation water droplets, metallic shaders, translucent label materials, HDR lighting, and multi-pass render compositing.",
+   year:"2024",role:"3D Artist & Lighting Designer",tools:"Blender · Cycles · Compositing · Photoshop",client:"Personal Project",
+   bg:"linear-gradient(135deg,#001a00 0%,#003300 50%,#004d00 100%)",hasVideo:false,isIphone:false,isTea:false,isBrandex:false,isUE5:false,isSkin:false,isKeyboard:false,isKitchen:false,isPerfume:false,isAirpod:false,isFoodBox:false,isArchUI:false,isHeineken:true,
+   ov:"A detailed 3D visualisation of the Heineken 500ml lager can built in Blender. The project focused on achieving photorealistic materials and lighting — including metallic shaders for the aluminium can body, translucent shaders for the label with subtle gloss, and clear SSS shaders for condensation water droplets. The result is a product render suitable for advertising, e-commerce, or promotional use.",
+   ch:"The primary challenge was creating convincing condensation droplets that scatter light correctly across the green can surface without looking CG. Each droplet required its own SSS/refraction shader. Simultaneously, the metallic aluminium needed to maintain form under dramatic lighting without losing the green colour identity.",
+   pr:"Modelled the can body with precise cylindrical form and custom top/bottom geometry. Applied procedural condensation using particle systems for droplet placement. Built shader network: Principled BSDF for aluminium body → translucent BSDF for label → glass/SSS for droplets. Set up three-point lighting rig with HDR environment. Rendered multi-pass AOVs for compositing flexibility.",
+   so:"Delivered a complete render package including three lighting variants (Light-01/02/03), raw vs composited comparison, original vs wireframe split, full render pass contact sheet (RGB, diffuse, specular, Z-depth, UV, alpha, normals, IDs), and final colour-corrected hero render.",
+   metrics:[{n:"15+",l:"Render Passes"},{n:"3",l:"Lighting Variants"},{n:"4K",l:"Final Output"}],
+   pal:["#001a00","#006600","#c8a96e","#1a1a1a","#f5f5f5"],
+   q:"The condensation and metallic materials look completely real — this is the level of quality we need for our product campaigns.",author:"Creative Director, Beverage Brand"},
+  {tag:"Product Viz",title:"Gaming Chair — 3D Visualisation",sub:"Photorealistic 3D visualisation of the OpSeat gaming chair — detailed modelling of leather upholstery, foam padding, metal base, caster wheels, and armrests. Multiple angles including front, rear, and wireframe breakdown.",
+   year:"2025",role:"3D Artist & Product Visualiser",tools:"Blender · Cycles · Substance 3D",client:"Personal Project",
+   bg:"linear-gradient(135deg,#1a0000 0%,#330000 50%,#660000 100%)",hasVideo:false,isIphone:false,isTea:false,isBrandex:false,isUE5:false,isSkin:false,isKeyboard:false,isKitchen:false,isPerfume:false,isAirpod:false,isFoodBox:false,isArchUI:false,isHeineken:false,isGamingChair:true,
+   ov:"A high-quality 3D product visualisation of an OpSeat gaming chair — built in Blender with Cycles rendering. The project covers the full modelling pipeline from base geometry to subdivision surface refinement, PBR leather and plastic material development, and studio lighting for e-commerce and advertising use.",
+   ch:"Achieving convincing leather upholstery with correct tension wrinkles and seam stitching across the complex curved forms of the chair back, seat, and side bolsters. The metal base and caster wheels required precise hard-surface modelling with accurate reflective materials.",
+   pr:"Modelled the chair body in multiple parts: backrest shell, headrest, lumbar support, armrests, seat cushion, recline mechanism, gas lift, star base, and casters. Applied subdivision surface modifiers with controlled edge loops at all sharp transitions. Developed PBR material library: black and red PU leather, matte plastic, brushed metal, and rubber. Rendered from three key angles plus wireframe views.",
+   so:"Delivered a complete product render package: hero 3/4 angle, front elevation, rear view, and two wireframe breakdown renders showing clean mesh topology across the full chair assembly.",
+   metrics:[{n:"3",l:"Final Render Angles"},{n:"2",l:"Wireframe Views"},{n:"4K",l:"Output Quality"}],
+   pal:["#1a0000","#cc0000","#1a1a1a","#f5f5f5","#888888"],
+   q:"The gaming chair renders are production-ready — exactly the quality level we need for our product listings and campaign visuals.",author:"Product Manager, Gaming Brand"},
+  {tag:"3D Animation",title:"Cozy Cabin Interior — Animation",sub:"Atmospheric 3D interior animation of a cozy log cabin living room — full scene build in Blender with 354 objects, cloth simulation, procedural textures, particle snow, and Cycles cinematic lighting.",
+   year:"2025",role:"3D Artist & Scene Director",tools:"Blender · Cycles · Cloth Simulation · Particle Systems",client:"Personal Project",
+   bg:"linear-gradient(135deg,#1a0a00 0%,#2d1800 50%,#4a2800 100%)",hasVideo:false,isIphone:false,isTea:false,isBrandex:false,isUE5:false,isSkin:false,isKeyboard:false,isKitchen:false,isPerfume:false,isAirpod:false,isFoodBox:false,isArchUI:false,isHeineken:false,isGamingChair:false,isCabinAnim:true,
+   ov:"A fully detailed 3D interior animation of a cozy log cabin living room, built in Blender with 354 unique objects. The scene features a plaid sofa, stone fireplace, wooden coffee table, bookshelf, sleeping cats, hanging plants, Persian rug, and soft ambient evening lighting — all rendered through a cinematic camera path in Cycles.",
+   ch:"Managing scene complexity with 354 objects while maintaining render performance. The plaid buffalo-check fabric on the sofa required custom UV mapping and procedural texture tiling. The sleeping cats used cloth simulation for realistic fur draping, and particle systems drove the exterior snowfall visible through the cabin window.",
+   pr:"Built scene architecture starting with the log cabin walls and floor. Populated room with hero furniture (sofa, coffee table, side table, bookshelf) and secondary props (mugs, wine glasses, books, plants, candles, artwork). Applied procedural textures for wood grain, stone, and fabric. Rigged camera path and animated keyframe timeline from frame 750 to 1499.",
+   so:"Delivered a cinematic interior walkthrough animation with warm evening lighting, a crackling fireplace glow, and soft ambient light through the cabin windows. The plaid sofa fabric, wooden surfaces, and stone fireplace read as photorealistic in the final render.",
+   metrics:[{n:"354",l:"Scene Objects"},{n:"750",l:"Keyframes"},{n:"Cycles",l:"Render Engine"}],
+   pal:["#1a0a00","#4a2800","#8b4500","#c8a96e","#2d4a1a"],
+   q:"The cabin animation captures a warmth and atmosphere that feels completely real — every prop detail and material reads beautifully.",author:"Creative Director, Animation Studio"},
+  {tag:"Product Viz",title:"Gaming Chair — 3D Visualisation",sub:"Photorealistic 3D visualisation of a premium gaming chair — featuring detailed PBR materials for leather, stitching, and chrome mechanisms, clean studio lighting, and full wireframe topology breakdown.",
+   year:"2024",role:"3D Artist & Product Visualiser",tools:"Blender · Cycles · Substance 3D · Photoshop",client:"Personal Project",
+   bg:"linear-gradient(135deg,#1a0000 0%,#2d0000 50%,#4a0000 100%)",hasVideo:false,isIphone:false,isTea:false,isBrandex:false,isUE5:false,isSkin:false,isKeyboard:false,isKitchen:false,isPerfume:false,isAirpod:false,isFoodBox:false,isArchUI:false,isHeineken:false,isChair:true,
+   ov:"A detailed photorealistic 3D product visualisation of a premium gaming chair — the OpSeat model. The project demonstrates precision modelling of complex ergonomic geometry, PBR material development for the leather upholstery and chrome mechanisms, and clean studio photography-style lighting.",
+   ch:"Modelling the curved ergonomic backrest and seat cushion with correct surface flow and edge loops required careful topology planning. The leather material needed to show subtle surface variation, stitching detail, and specular response without appearing plastic.",
+   pr:"Modelled the full chair from scratch — backrest, headrest, lumbar support, armrests, and five-star base with caster wheels. UV unwrapped and developed PBR materials: matte black leather body, red accent panels, brushed chrome mechanisms. Studio lighting setup with three-point HDRI. Produced multiple camera angles — 3/4 front, straight front, back view — plus full wireframe passes.",
+   so:"Delivered a complete product render package including multiple angles, wireframe topology renders, and a clean white-background hero shot suitable for e-commerce or advertising. The renders show the chair from every commercial angle needed for product launch.",
+   metrics:[{n:"3",l:"Render Angles"},{n:"2",l:"Wireframe Passes"},{n:"4K",l:"Output Quality"}],
+   pal:["#1a0000","#cc0000","#1a1a1a","#f5f5f5","#888888"],
+   q:"The gaming chair renders are indistinguishable from real product photography — exactly the quality we need for our e-commerce launch.",author:"Product Manager, Gaming Brand"}];
+
+function openCase(i){
+  const p=P[i];
+  document.getElementById("chtag").textContent=p.tag;
+  document.getElementById("chtitle").textContent=p.title;
+  document.getElementById("chsub").textContent=p.sub;
+  document.getElementById("chy").textContent=p.year;
+  document.getElementById("chr").textContent=p.role;
+  document.getElementById("cht").textContent=p.tools;
+  document.getElementById("chcl").textContent=p.client;
+  document.getElementById("chbg").style.background=p.bg;
+
+  // Build case study content
+  const asusBlock = p.hasVideo ? `
+    <div class="imgfull"><div class="imgfull-inner" style="background:#000;padding:0">
+      <img src="${ASUS_IMG}" style="width:100%;height:100%;object-fit:cover" alt="ASUS ROG render">
+    </div></div>
+    <div class="csec"><div class="cseclabel">— Project Video</div>
+      <div class="vid-module">
+        <video controls autoplay muted loop playsinline preload="auto">
+          <source src="${VIDEO_DATA}" type="video/mp4">
+        </video>
+        <div class="vid-label">ASUS ROG Gaming Laptop — 3D Animation Reel · 2024</div>
+      </div>
+    </div>` : ``;
+
+  const skinBlock = p.isSkin ? `
+    <div class="csec"><div class="cseclabel">Step 01 — Hero Animation · Final Render</div>
+      <div class="vid-module">
+        <video controls autoplay loop playsinline preload="auto">
+          <source src="${SKIN_HERO}" type="video/mp4">
+        </video>
+        <div class="vid-label">The Skin Theory — Cleansing Oil · Hero Animation · Cycles 4K · 2025</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 02 — Breakdown Clip A · Camera & Lighting</div>
+      <div style="overflow:hidden;background:#050505;margin-bottom:0">
+        <video controls muted loop playsinline preload="auto" style="width:100%;display:block">
+          <source src="${SKIN_BD1}" type="video/mp4">
+        </video>
+        <div style="padding:12px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Breakdown A · Camera Orbital Path — Lighting Setup · Cycles Preview</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 03 — Breakdown Clips B & C · Material & Animation</div>
+      <div class="imggrid2" style="margin:0">
+        <div style="overflow:hidden;background:#050505">
+          <video controls muted loop playsinline preload="auto" style="width:100%;display:block">
+            <source src="${SKIN_BD2}" type="video/mp4">
+          </video>
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Breakdown B · Material Shading — PBR Wood Grain · Glass SSS · Cream Texture</div>
+        </div>
+        <div style="overflow:hidden;background:#050505">
+          <video controls muted loop playsinline preload="auto" style="width:100%;display:block">
+            <source src="${SKIN_BD3}" type="video/mp4">
+          </video>
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Breakdown C · Lid Open Animation — Keyframe Sequence · Sculpted Cream Mesh</div>
+        </div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 04 — Still Renders · 4K Output</div>
+      <div class="imggrid2" style="margin:0">
+        <div style="overflow:hidden;background:#050505">
+          <img src="${SKIN_RENDER}" style="width:100%;height:100%;object-fit:cover;display:block" alt="The Skin Theory — Final 4K still render">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Still Render · Front View — Dark Luxury Studio · Cycles 4K</div>
+        </div>
+        <div style="overflow:hidden;background:#050505">
+          <img src="${SKIN_IMG2}" style="width:100%;height:100%;object-fit:cover;display:block" alt="The Skin Theory — Side angle 4K render">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Still Render · Detail Angle — Wood Lid Texture · Gold Label · Cycles 4K</div>
+        </div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 05 — After Effects Composition · Music Cut</div>
+      <div style="overflow:hidden;background:#050505">
+        <video controls loop playsinline preload="auto" style="width:100%;display:block">
+          <source src="${SKIN_COMP1}" type="video/mp4">
+        </video>
+        <div style="padding:12px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">After Effects Composite · Colour Grade + Motion + Brand Music — Social Media Cut</div>
+      </div>
+    </div>` : ``;
+
+  const keyboardBlock = p.isKeyboard ? `
+    <div class="csec"><div class="cseclabel">Step 01 — Hero Animation · Final Render</div>
+      <div class="vid-module">
+        <video controls autoplay loop playsinline preload="auto">
+          <source src="${KB_HERO}" type="video/mp4">
+        </video>
+        <div class="vid-label">Assembling the Keyboard — Delta Robot Arm · Product Animation · Cycles 4K · 2025</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 02 — 3D Modelling · Clay Render · Blender</div>
+      <div style="overflow:hidden;background:#0d0d14;margin-bottom:20px">
+        <img src="${KB_IMG1}" style="width:100%;display:block;object-fit:cover" alt="Clay render — Delta robot arm and keyboard base">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Clay Model · Blender Matcap — Delta Parallel Robot Arm + Keyboard Chassis · IK Bone Rig Visible</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 03 — Material & Texturing · Substance Painter</div>
+      <div class="imggrid2" style="margin:0 0 20px">
+        <div style="overflow:hidden;background:#0d0d14">
+          <img src="${KB_IMG2}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Material shading — robot arm with gold and white materials">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Material Pass · Eevee Preview — Metallic Robot Arm · PBR Material Test · Gold Joints + White ABS Body</div>
+        </div>
+        <div style="overflow:hidden;background:#0d0d14">
+          <img src="${KB_IMG3}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Wide shot — parallel linkage arm and keyboard">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Lighting Setup · Eevee — Parallel Linkage Geometry · IK Motion Path · Keyboard Grid Below</div>
+        </div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 04 — Final Render · Cycles 4K</div>
+      <div style="overflow:hidden;background:#0d0d14;margin-bottom:20px">
+        <img src="${KB_IMG4}" style="width:100%;display:block;object-fit:cover" alt="Final render — keyboard assembly cinematic shot">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Render · Cycles 4K — Cinematic Depth of Field · Volumetric Light · RGB Keyboard Accent · Studio Lighting</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 05 — Animation Breakdown · Motion Sequence</div>
+      <div style="overflow:hidden;background:#0d0d14">
+        <video controls loop playsinline preload="auto" style="width:100%;display:block">
+          <source src="${KB_BD}" type="video/mp4">
+        </video>
+        <div style="padding:12px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Breakdown · Robot Arm IK Motion — Keyframe Path · Assembly Sequence · Cycles Preview</div>
+      </div>
+    </div>` : ``;
+
+  const kitchenBlock = p.isKitchen ? `
+    <div class="csec"><div class="cseclabel">Step 01 — Client Brief · Concept Sketch</div>
+      <div style="overflow:hidden;background:#faf7f0;margin-bottom:0">
+        <img src="${KITCH_SKETCH}" style="width:100%;display:block;object-fit:cover" alt="Kitchen concept sketch with material notes">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Concept Sketch · Hand Drawing — Gloss Finish · Matte Cab · Mosaic Detail · Client Material Notes · India</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 02 — Technical Drawing · CAD Elevation</div>
+      <div style="overflow:hidden;background:#f5f5f5;margin-bottom:0">
+        <img src="${KITCH_CAD}" style="width:100%;display:block;object-fit:cover" alt="Technical elevation and line drawing — kitchen CAD">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">CAD Technical Elevation · Project K-MOD-2026 — 4800mm Run · Scale 1:25 · Wash Zone · Cooking Zone · BI Oven · Fridge</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 03 — 3D Modelling · SketchUp Wireframe</div>
+      <div style="overflow:hidden;background:#ffffff;margin-bottom:0">
+        <img src="${KITCH_SKETCHUP}" style="width:100%;display:block;object-fit:cover" alt="SketchUp 3D wireframe — kitchen cabinet layout">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">SketchUp 3D Model · Wireframe Component Mode — Upper Dark Units (Navy) · Lower Mustard Base · Tall Pantry · Run Width 4800mm</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 04 — Final Render · Photorealistic V-Ray</div>
+      <div style="overflow:hidden;background:#e8e0d0;margin-bottom:0">
+        <img src="${KITCH_RENDER}" style="width:100%;display:block;object-fit:cover" alt="Final photorealistic kitchen render">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Render · V-Ray Photorealistic — Gloss Mustard Lower Units · Matte Charcoal Upper · Mosaic Backsplash · Natural Light · 4K</div>
+      </div>
+    </div>` : ``;
+
+  const perfumeBlock = p.isPerfume ? `
+    <div class="csec"><div class="cseclabel">Step 01 — Final Animation · Hero Render</div>
+      <div class="vid-module">
+        <video controls autoplay muted loop playsinline preload="auto">
+          <source src="${PERF_VID}" type="video/mp4">
+        </video>
+        <div class="vid-label">Perfume Bottle Visualisation — Cloth Leather Drape · Cycles Studio Lighting · Blender · 2025</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 02 — 3D Model & Cloth Simulation · Wireframe</div>
+      <div style="overflow:hidden;background:#1a1500;margin-bottom:0">
+        <img src="${PERF_WIRE}" style="width:100%;display:block;object-fit:cover" alt="Blender wireframe — perfume bottle and cloth sim mesh">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Blender Wireframe · Cloth Simulation — Bottle Mesh Topology + Subdivided Cloth Plane · Collision Physics Baked · Yellow Wireframe</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 03 — Shader Node Setup · Leather PBR Material</div>
+      <div style="overflow:hidden;background:#0d0d0d;margin-bottom:0">
+        <img src="${PERF_SHADER}" style="width:100%;display:block;object-fit:cover" alt="Blender shader nodes — leather PBR material setup">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Blender Shader Editor · Leather PBR — Texture Coordinate → Mapping → Albedo · Roughness · Normal · Displacement → Principled BSDF · Rendering Done</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 04 — Final Render · Cycles 4K</div>
+      <div style="overflow:hidden;background:#0a0000;margin-bottom:0">
+        <img src="${PERF_RENDER}" style="width:100%;display:block;object-fit:cover" alt="Final perfume bottle render — luxury dark studio">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Render · Cycles 4K — High-Gloss Black Glass · Gold Embossed Label · PBR Leather Drape · Dark Luxury Studio · Depth of Field</div>
+      </div>
+    </div>` : ``;
+
+  const airpodBlock = p.isAirpod ? `
+    <div class="csec"><div class="cseclabel">Step 01 — Product Animation · Final Render</div>
+      <div class="vid-module">
+        <video controls autoplay muted loop playsinline preload="auto">
+          <source src="${AP_HERO}" type="video/mp4">
+        </video>
+        <div class="vid-label">AirPods Pro — Charging Case Lid-Open Animation · Blender Cycles · 2025</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 02 — 3D Modelling · Wireframe Breakdown</div>
+      <div class="imggrid2" style="margin:0">
+        <div style="overflow:hidden;background:#1a1a1a">
+          <img src="${AP_WIRE1}" style="width:100%;height:100%;object-fit:cover;display:block" alt="AirPods case wireframe">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Wireframe · Charging Case — Rounded Rectangular Form · Lid Seam · Hinge Detail · Subdivision Surface</div>
+        </div>
+        <div style="overflow:hidden;background:#1a1a1a">
+          <img src="${AP_WIRE2}" style="width:100%;height:100%;object-fit:cover;display:block" alt="AirPods earbud wireframe">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Wireframe · Earbud — Organic Bulb Body · Stem · Ear Tip · Microphone Mesh · Open Case View</div>
+        </div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 03 — Animation Breakdown · Orbital Reveal</div>
+      <div style="overflow:hidden;background:#0a0a0a">
+        <video controls loop playsinline preload="auto" style="width:100%;display:block">
+          <source src="${AP_BD}" type="video/mp4">
+        </video>
+        <div style="padding:12px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Animation Breakdown · Lid Open Sequence + Camera Orbital — Blender Timeline · Keyframe Animation</div>
+      </div>
+    </div>` : ``;
+
+  const foodboxBlock = p.isFoodBox ? `
+    <div class="csec"><div class="cseclabel">— UI/UX Flow · All 5 Screens</div>
+      <div style="overflow:hidden;background:#f8f5f0">
+        <img src="${FOOD_IMG}" style="width:100%;display:block;object-fit:cover" alt="Food Box UX/UI — 5 screen user flow">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #e0ddd8">Complete User Flow · Home Discovery → Bag Detail → Cart → Payment (UPI/Card/Cash) → Confirmation · Food Box App · 2025</div>
+      </div>
+    </div>
+    <div class="csec" style="margin-top:32px">
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="https://www.behance.net/gallery/223105841/Food-box-UXUI-Case-study" target="_blank" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--accent);padding:14px 28px;text-decoration:none;display:inline-flex;align-items:center;gap:8px">View on Behance ↗</a>
+      </div>
+    </div>` : ``;
+
+  const archUIBlock = p.isArchUI ? `
+    <div class="csec"><div class="cseclabel">— Website UI Design · Hero Screen</div>
+      <div style="overflow:hidden;background:#0a0f1a">
+        <img src="${ARCH_IMG}" style="width:100%;display:block;object-fit:cover" alt="Architectural Website UI/UX Design">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Hero Screen · Architectural Website — Bold 'A' Identity Mark · Editorial Architecture Photography · Premium Typography System · Figma · 2025</div>
+      </div>
+    </div>
+    <div class="csec" style="margin-top:32px">
+      <div style="display:flex;gap:16px;flex-wrap:wrap">
+        <a href="https://www.behance.net/gallery/230111877/Architectural-Website-UI-UX-Design" target="_blank" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--bg);background:var(--accent);padding:14px 28px;text-decoration:none;display:inline-flex;align-items:center;gap:8px">View on Behance ↗</a>
+      </div>
+    </div>` : ``;
+
+  const heinekBlock = p.isHeineken ? `
+    <div class="csec"><div class="cseclabel">Step 01 — Project Overview · Final Render</div>
+      <div style="overflow:hidden;background:#001a00;margin-bottom:0">
+        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken 3D Visualisation — project hero">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Heineken 3D Visualisation · Blender — Metallic Aluminium · Condensation Droplets · HDR Lighting · Cycles</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 02 — Final Render · Clean Hero Shot</div>
+      <div style="overflow:hidden;background:#0a0a0a;margin-bottom:0">
+        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken final render — clean hero">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Render · Colour Corrected Hero — Condensation SSS · Translucent Label Shader · Metallic Aluminium Body · Cycles 4K</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 03 — Lighting Study · Three Variants</div>
+      <div style="overflow:hidden;background:#050505;margin-bottom:20px">
+        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken 3-light comparison">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Lighting Variants · Light-01 / Light-02 / Light-03 — HDR Environment + Strategically Placed Spotlights · Key/Fill/Rim Rig</div>
+      </div>
+      <div style="overflow:hidden;background:#050505">
+        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken light comparison split">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Light-01 vs Light-02 Split · Dramatic Side Lighting — Highlight and Shadow Balance on Green Aluminium</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 04 — Wireframe & Model Breakdown</div>
+      <div style="overflow:hidden;background:#0a0a0a;margin-bottom:0">
+        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken render vs wireframe split">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Original Render vs Wireframe Split — Can Body Topology · Condensation Particle System · UV Layout</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 05 — Raw Render vs Final Composition</div>
+      <div class="imggrid2" style="margin:0 0 20px">
+        <div style="overflow:hidden;background:#0a0a0a">
+          <img src="assets/inline_jpg_2.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Raw vs after composition — portrait">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Raw Render vs After Composition · Portrait — Colour Grade + Glow + Reflection Enhancement</div>
+        </div>
+        <div style="overflow:hidden;background:#0a0a0a">
+          <img src="assets/inline_jpg_2.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Raw vs final — landscape comparison">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Raw vs Final · Landscape — Compositing Nodes · Colour Correction · Green Accent Enhancement</div>
+        </div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 06 — Render Pass Contact Sheet · AOV Breakdown</div>
+      <div style="overflow:hidden;background:#0a0a0a;margin-bottom:20px">
+        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken full render pass contact sheet">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Full AOV Contact Sheet · RGB · Light-01/02/03 · Direct Diffuse · Occlusion · Refraction · Specular · Z-Depth · Alpha · Normals · UV · IDs · Wireframe</div>
+      </div>
+      <div style="overflow:hidden;background:#0a0a0a">
+        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken render passes alternate">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Render Passes Grid · Light-01/02 · Direct Diffuse · Occlusion · Indirect/Direct Specular · Z-Depth · Alpha · UV · Diffuse Color · ID Mattes</div>
+      </div>
+    </div>` : ``;
+
+  const gamingChairBlock = p.isGamingChair ? `
+    <div class="csec"><div class="cseclabel">Step 01 — Hero Render · 3/4 Angle</div>
+      <div style="overflow:hidden;background:#f8f8f8;margin-bottom:0">
+        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Gaming Chair hero render">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Hero Render · OpSeat Gaming Chair — 3/4 Angle · Black & Red PU Leather · Blender Cycles 4K</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 02 — Front & Rear Elevation Renders</div>
+      <div class="imggrid2" style="margin:0">
+        <div style="overflow:hidden;background:#f8f8f8">
+          <img src="assets/inline_jpg_2.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Gaming chair front view">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Front Elevation · Full Chair — Lumbar Support · Headrest · Armrests · Red Side Bolsters</div>
+        </div>
+        <div style="overflow:hidden;background:#f8f8f8">
+          <img src="assets/inline_jpg_2.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Gaming chair rear view">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Rear Elevation · Backrest Detail — Red Ventilation Slots · Recline Mechanism · Gas Lift</div>
+        </div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 03 — Wireframe Model Breakdown</div>
+      <div class="imggrid2" style="margin:0">
+        <div style="overflow:hidden;background:#f0f0f0">
+          <img src="assets/chair_wire1.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Gaming chair wireframe 1">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Wireframe · 3/4 View — Clean Quad Topology · Subdivision Surface · Seat & Back Shell</div>
+        </div>
+        <div style="overflow:hidden;background:#f0f0f0">
+          <img src="assets/chair_wire2.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Gaming chair wireframe 2">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Wireframe · Front View — Full Assembly Topology · Armrest · Caster · Star Base Mesh</div>
+        </div>
+      </div>
+    </div>` : ``;
+
+  const cabinAnimBlock = p.isCabinAnim ? `
+    <div class="csec"><div class="cseclabel">Step 01 — Blender Scene · Camera View</div>
+      <div style="overflow:hidden;background:#1a0a00;margin-bottom:0">
+        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Cozy cabin interior — camera perspective">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Blender Camera View · 354 Objects · Snowflakes Scene — Camera Frame 807 · Timeline 750–1499</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 02 — Scene Layout · Object Placement</div>
+      <div style="overflow:hidden;background:#1a0a00;margin-bottom:0">
+        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Cozy cabin scene overview">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Scene Overview · Camera + Light Rig Visible — Log Cabin Walls · Fireplace · Sofa · Coffee Table Layout</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 03 — Clay Render & Asset Breakdown</div>
+      <div class="imggrid2" style="margin:0 0 20px">
+        <div style="overflow:hidden;background:#1a1a1a">
+          <img src="assets/inline_jpg_2.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Cat model wireframe">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Asset Breakdown · Sleeping Cat — Organic Mesh + Cloth Sim Fur · Photoscanned Texture</div>
+        </div>
+        <div style="overflow:hidden;background:#1a1a1a">
+          <img src="assets/inline_jpg_2.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Clay render sofa and interior">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Clay Render · Sofa & Interior — Coffee Table · Lamp · Mugs · Props Detail Visible</div>
+        </div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 04 — UV & Texture Work · Fabric Material</div>
+      <div style="overflow:hidden;background:#0d0d0d;margin-bottom:0">
+        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="UV editor and plaid sofa texture">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">UV Editor · Buffalo Plaid Sofa Fabric — Tiled Texture Map + Sofa Mesh UV Layout · Blender Material Setup</div>
+      </div>
+    </div>` : ``;
+
+  const chairBlock = p.isChair ? `
+    <div class="csec"><div class="cseclabel">Step 01 — Final Renders · Multiple Angles</div>
+      <div style="overflow:hidden;background:#f8f8f8;margin-bottom:20px">
+        <img src="${CHAIR_HERO}" style="width:100%;display:block;object-fit:cover" alt="Gaming Chair — 3/4 front view">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Hero Render · 3/4 Front View — PBR Leather Materials · Studio Lighting · Cycles 4K</div>
+      </div>
+      <div class="imggrid2" style="margin:0 0 20px">
+        <div style="overflow:hidden;background:#f8f8f8">
+          <img src="${CHAIR_FRONT}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Gaming Chair — front view">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Front View — Symmetry Render · Red &amp; Black Leather · Clean Studio Background</div>
+        </div>
+        <div style="overflow:hidden;background:#f8f8f8">
+          <img src="${CHAIR_BACK}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Gaming Chair — back view">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Back View — Backrest Detail · Red Accent Vents · Five-Star Chrome Base</div>
+        </div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 02 — Wireframe · Topology Breakdown</div>
+      <div class="imggrid2" style="margin:0">
+        <div style="overflow:hidden;background:#f0f0f0">
+          <img src="${CHAIR_WIRE1}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Gaming Chair wireframe — grey matcap">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Wireframe Pass · Grey Matcap — Clean Edge Loop Flow · Subdivision Topology · Backrest Curvature</div>
+        </div>
+        <div style="overflow:hidden;background:#e0e0e0">
+          <img src="${CHAIR_WIRE2}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Gaming Chair wireframe — dark mode">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Wireframe Pass · Dark Mode — Full Mesh Density · Caster Wheels · Armrest Geometry</div>
+        </div>
+      </div>
+    </div>` : ``;
+
+  const cabinBlock = p.isCabin ? `
+    <div class="csec"><div class="cseclabel">Step 01 — Scene Setup · Camera Perspective</div>
+      <div style="overflow:hidden;background:#1a1208;margin-bottom:20px">
+        <img src="${CABIN_BL1}" style="width:100%;display:block;object-fit:cover" alt="Cozy Cabin — Blender camera perspective">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Blender Scene · Camera Perspective — 354 Objects · Frame 807 · Full Textured View · Log Cabin Living Room</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 02 — Lighting Setup · Scene Layout</div>
+      <div style="overflow:hidden;background:#1a1208;margin-bottom:0">
+        <img src="${CABIN_BL2}" style="width:100%;display:block;object-fit:cover" alt="Cozy Cabin — lighting and scene layout">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Scene Layout · Lighting Rig — Area Light (Orange) · Camera Frustum · Log Wall · Stone Fireplace</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 03 — Asset Breakdown · Model Details</div>
+      <div class="imggrid2" style="margin:0 0 20px">
+        <div style="overflow:hidden;background:#0d0d0d">
+          <img src="${CABIN_BL3}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Cat mesh — organic sculpt wireframe">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Asset Detail · Cat Mesh — Organic Sculpt Wireframe · Sleeping Pose · Subdivision Surface</div>
+        </div>
+        <div style="overflow:hidden;background:#1a1208">
+          <img src="${CABIN_BL4}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Clay render — sofa and furniture">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Clay Render · Furniture Detail — Sofa Cushions · Coffee Table · Side Table · Lamp Models</div>
+        </div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 04 — Texturing · UV Layout</div>
+      <div style="overflow:hidden;background:#0d0d0d;margin-bottom:0">
+        <img src="${CABIN_TEX}" style="width:100%;display:block;object-fit:cover" alt="Sofa UV and texture mapping">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">UV Texturing · Plaid Sofa — Buffalo Check Fabric Texture · UV Mapping · Sofa Mesh Selected · Blender UV Editor</div>
+      </div>
+    </div>` : ``;
+
+  const brandexBlock = p.isBrandex ? `
+    <div class="csec"><div class="cseclabel">— Final Product Renders</div>
+      <div style="overflow:hidden;background:#b87800;margin-bottom:20px">
+        <img src="${BDX_CHEDDAR}" style="width:100%;display:block;object-fit:cover" alt="Brandex cheddar wheel pattern">
+        <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Hero Render · Premium Cheddar Wheel — Label Wrap on Curved Surface · 4K</div>
+      </div>
+      <div class="imggrid2" style="margin:0 0 20px">
+        <div style="overflow:hidden;background:#b87800">
+          <img src="${BDX_HOLANDES}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Holandes Alpina special edition">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Hollandés Alpina — Special Edition · Foil Material &amp; Label Design · 4K</div>
+        </div>
+        <div style="overflow:hidden;background:#8b0000">
+          <img src="${BDX_BUFARELINI}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Bufarelini cheddar tubs">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Bufarelini · Cheddar Tubs — Front &amp; Back Label Render · 4K</div>
+        </div>
+      </div>
+      <div class="imggrid2" style="margin:0 0 20px">
+        <div style="overflow:hidden;background:#0055aa">
+          <img src="${BDX_MOZZ}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Mozzarella tub and pouch">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Mozzarella Range · Tub + Stand-Up Pouch — Red Label System · 4K</div>
+        </div>
+        <div style="overflow:hidden;background:#b87800">
+          <img src="${BDX_YTUBS}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Yellow cheese tubs floating">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Yellow Cheddar Tubs · Floating Studio Shot — PBR Plastic Material · 4K</div>
+        </div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">— 3D Model Wireframes · Blender Process Breakdown</div>
+      <div class="imggrid2" style="margin:0 0 20px">
+        <div style="overflow:hidden;background:#e8e8e6">
+          <img src="${BDX_WIRE3}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Wireframe — cheese wheel models">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Blender Wireframe · Cheese Wheel Geometry — Subdivision Surface Topology</div>
+        </div>
+        <div style="overflow:hidden;background:#e8e8e6">
+          <img src="${BDX_WIRE1}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Wireframe — tub models">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Blender Wireframe · Tub &amp; Bowl Container Mesh — UV Seam Layout</div>
+        </div>
+      </div>
+      <div style="overflow:hidden;background:#e8e8e6">
+        <img src="${BDX_WIRE2}" style="width:100%;display:block;object-fit:cover" alt="Wireframe — tub and pouch">
+        <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Model Breakdown · Tub + Stand-Up Pouch — Topology &amp; Curvature Flow · 4K</div>
+      </div>
+    </div>` : ``;
+
+  const ue5Block = p.isUE5 ? `
+    <div class="csec"><div class="cseclabel">— Project Walkthrough Video</div>
+      <div class="vid-module">
+        <video controls autoplay muted loop playsinline preload="auto">
+          <source src="${UE5_VID}" type="video/mp4">
+        </video>
+        <div class="vid-label">Unreal Engine 5.6 — Interactive Architectural Visualisation · Real-Time Lumen · 2025</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">— Blueprint System Breakdown</div>
+      <div style="overflow:hidden;background:#0d0d1a;margin-bottom:20px">
+        <img src="${UE5_BP1}" style="width:100%;display:block;object-fit:cover" alt="UE5 Blueprint — Proximity Light Control System">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Blueprint 01 · BP_MultipleObjects — Proximity-Based Light Toggle · On Component Begin/End Overlap → Get All Actors With Tag → For Each Loop → Set Visibility</div>
+      </div>
+      <div class="imggrid2" style="margin:0 0 20px">
+        <div style="overflow:hidden;background:#0d0d1a">
+          <img src="${UE5_BP2}" style="width:100%;height:100%;object-fit:cover;display:block" alt="UE5 Blueprint — Widget Interaction Interface">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Blueprint 02 · BP_Cone — BPI Object Interaction · ShowWidget / HideWidget Interface Events → Set Hidden in Game</div>
+        </div>
+        <div style="overflow:hidden;background:#0d0d1a">
+          <img src="${UE5_BP3}" style="width:100%;height:100%;object-fit:cover;display:block" alt="UE5 Blueprint — Material Switching System">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Blueprint 03 · BP_Menu — Dynamic Material Switching · Get All Actors With Tag → For Each Loop → Set Material · b_floor / b_walls / b_leather tags</div>
+        </div>
+      </div>
+    </div>` : ``;
+
+  const teaBlock = p.isTea ? `
+    <div class="csec"><div class="cseclabel">— Brand Overview</div>
+      <div style="overflow:hidden;background:#000;margin-bottom:20px">
+        <img src="assets/inline_png_4.png" style="width:100%;display:block;object-fit:cover" alt="Brandex brand identity">
+        <div style="padding:12px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Brand Identity · Brandex — Premium Cheese Range</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">— Packaging System</div>
+      <div style="overflow:hidden;background:#f8f6f2;margin-bottom:20px">
+        <img src="assets/inline_png_4.png" style="width:100%;display:block;object-fit:cover" alt="Three tea box variants">
+        <div style="padding:12px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Hero Shot · Morning Berry · Night Time · Joy — Full Range</div>
+      </div>
+      <div class="imggrid2" style="margin:0 0 20px">
+        <div style="overflow:hidden;background:#f0eee8">
+          <img src="assets/inline_png_4.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="Night Time and Morning Berry boxes">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Night Time &amp; Morning Berry — Box Design</div>
+        </div>
+        <div style="overflow:hidden;background:#fff8ee">
+          <img src="assets/inline_png_4.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="Joy box with tea sachet">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Joy — Box &amp; Individual Sachet Envelope</div>
+        </div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">— Gift & Retail Packaging</div>
+      <div style="overflow:hidden;background:#f0f0f0;margin-bottom:20px">
+        <img src="assets/inline_png_4.png" style="width:100%;display:block;object-fit:cover" alt="Gift carry boxes">
+        <div style="padding:12px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Gift Collection · Carry Boxes — All Three Variants</div>
+      </div>
+      <div class="imggrid2" style="margin:0">
+        <div style="overflow:hidden;background:#fff8dc">
+          <img src="assets/inline_png_4.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="Flat box die-cut">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Die-Cut Flat Layout · Morning Berry Box</div>
+        </div>
+        <div style="overflow:hidden;background:#e8f0f8">
+          <img src="assets/inline_png_4.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="Tea bag sachet designs">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Tea Bag Sachets &amp; Envelope Tags — All Variants</div>
+        </div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">— Advertising Campaign</div>
+      <div style="overflow:hidden;background:#1a1a1a;margin-bottom:20px">
+        <img src="assets/inline_png_4.png" style="width:100%;display:block;object-fit:cover" alt="Billboard campaign Morning Berry">
+        <div style="padding:12px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Outdoor Campaign · Morning Berry Billboard</div>
+      </div>
+      <div style="overflow:hidden;background:#0a0018">
+        <img src="assets/inline_png_4.png" style="width:100%;display:block;object-fit:cover" alt="Night Time banner campaign">
+        <div style="padding:12px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Outdoor Campaign · Night Time Banner — For calm night time zzz</div>
+      </div>
+    </div>` : ``;
+
+  const iphoneBlock = p.isIphone ? `
+    <div class="csec"><div class="cseclabel">— Process Screenshots</div>
+      <div class="imggrid2" style="margin:0 0 20px">
+        <div style="overflow:hidden;background:#000">
+          <img src="${IPHONE_IMG1}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Blender animation scene">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Research · Blender Animation Scene</div>
+        </div>
+        <div style="overflow:hidden;background:#000">
+          <img src="${IPHONE_IMG2}" style="width:100%;height:100%;object-fit:cover;display:block" alt="Eevee exploded view">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Ideation · Eevee Exploded View</div>
+        </div>
+      </div>
+      <div style="overflow:hidden;background:#000;margin-top:20px">
+        <img src="${IPHONE_IMG3}" style="width:100%;max-height:500px;object-fit:cover;display:block" alt="Shader nodes">
+        <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Material Development · Shader Node Setup</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">— Project Video</div>
+      <div class="vid-module">
+        <video controls autoplay muted loop playsinline preload="auto">
+          <source src="${IPHONE_VID}" type="video/mp4">
+        </video>
+        <div class="vid-label">Smartphone Exploded View — 3D Animation · 2024</div>
+      </div>
+    </div>` : ``;
+
+  const finalImgBlock = p.isGamingChair ? `
+    <div style="margin:44px 0 0;background:#f8f8f8;overflow:hidden">
+      <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Gaming Chair — Final Hero Render">
+      <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Output · OpSeat Gaming Chair — Blender Cycles 4K · PBR Materials · 2025</div>
+    </div>` : p.isCabinAnim ? `
+    <div style="margin:44px 0 0;background:#1a0a00;overflow:hidden">
+      <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Cozy Cabin — Final Scene">
+      <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Output · Cozy Cabin Interior — Blender Cycles · 354 Objects · Particle Snow · 2025</div>
+    </div>` : p.isHeineken ? `
+    <div style="margin:44px 0 0;background:#0a0a0a;overflow:hidden">
+      <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken — Final 4K Render">
+      <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Output · Heineken 500ml — Cycles 4K · Blender · Multi-Pass AOV Compositing · 2024</div>
+    </div>` : p.isAirpod ? `
+    <div style="margin:44px 0 0;background:#1a1a2e;overflow:hidden">
+      <img src="${AP_WIRE2}" style="width:100%;display:block;object-fit:cover" alt="AirPods — Open Case Final">
+      <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Output · AirPods Pro — Charging Case + Earbud · Blender Cycles · 2025</div>
+    </div>` : p.isFoodBox ? `
+    <div style="margin:44px 0 0;background:#f8f5f0;overflow:hidden">
+      <img src="${FOOD_IMG}" style="width:100%;display:block;object-fit:cover" alt="Food Box — Final UI">
+      <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #e0ddd8">Final Output · Food Box UX/UI — Complete User Flow · Figma · 2025</div>
+    </div>` : p.isArchUI ? `
+    <div style="margin:44px 0 0;background:#0a0f1a;overflow:hidden">
+      <img src="${ARCH_IMG}" style="width:100%;display:block;object-fit:cover" alt="Architectural Website — Final UI">
+      <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Output · Architectural Website UI/UX — Premium Design System · Figma · 2025</div>
+    </div>` : p.isPerfume ? `
+    <div style="margin:44px 0 0;background:#0a0000;overflow:hidden">
+      <img src="${PERF_RENDER}" style="width:100%;display:block;object-fit:cover" alt="Perfume Bottle — Final 4K Render">
+      <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Output · Perfume Bottle Visualisation — Cycles 4K · Blender · Cloth Simulation · PBR Materials · 2025</div>
+    </div>` : p.isKitchen ? `
+    <div style="margin:44px 0 0;background:#e8e0d0;overflow:hidden">
+      <img src="${KITCH_RENDER}" style="width:100%;display:block;object-fit:cover" alt="Kitchen — Final 4K Render">
+      <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Output · Modular Kitchen — SketchUp + V-Ray 4K · Client Approved · Bangalore, India · 2026</div>
+    </div>` : p.isKeyboard ? `
+    <div style="margin:44px 0 0;background:#0d0d14;overflow:hidden">
+      <img src="${KB_IMG4}" style="width:100%;display:block;object-fit:cover" alt="Keyboard Assembly — Final 4K Render">
+      <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Output · Assembling the Keyboard — Cycles 4K · Blender · Substance Painter · 2025</div>
+    </div>` : p.isSkin ? `
+    <div style="margin:44px 0 0;background:#050505;overflow:hidden">
+      <img src="${SKIN_RENDER}" style="width:100%;display:block;object-fit:cover" alt="The Skin Theory — Final 4K Render">
+      <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Output · The Skin Theory Cleansing Oil — Cycles 4K · 2025</div>
+    </div>` : p.isUE5 ? `` : p.isBrandex ? `
+    <div style="margin:44px 0 0;background:#b87800;overflow:hidden">
+      <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Brandex — Final Render Output">
+      <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Output · Brandex Cheddar Cheese — Cycles 4K Studio Render · 2024</div>
+    </div>` : p.isTea ? `
+    <div style="margin:44px 0 0;background:#f0eeea;overflow:hidden">
+      <img src="assets/inline_png_4.png" style="width:100%;display:block;object-fit:cover" alt="Brandex — Final Render Output">
+      <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Output · Brandex Cheese — Packaging Range · 2024</div>
+    </div>` : p.isIphone ? `
+    <div style="margin:44px 0 0;background:#000;overflow:hidden">
+      <img src="${IPHONE_FINAL}" style="width:100%;display:block;object-fit:cover" alt="Smartphone Exploded View — Final Render K X10">
+      <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Render · K X10 Smartphone Exploded View — Cycles 4K</div>
+    </div>` : p.hasVideo ? `` : `
+    <div class="imgfull"><div class="imgfull-inner" style="background:${p.bg};aspect-ratio:21/9">
+      <span style="font-family:'Playfair Display',serif;font-size:clamp(20px,4vw,52px);font-style:italic;font-weight:700;color:rgba(255,255,255,.09);padding:20px;text-align:center">Final Output — ${p.title}</span>
+    </div></div>`;
+
+  const researchGrid = (!p.hasVideo && !p.isIphone && !p.isTea && !p.isBrandex && !p.isUE5 && !p.isSkin && !p.isKeyboard && !p.isKitchen && !p.isPerfume && !p.isAirpod && !p.isFoodBox && !p.isArchUI && !p.isHeineken && !p.isGamingChair && !p.isCabinAnim) ? `
+    <div class="imggrid2">
+      <div style="aspect-ratio:4/3;background:${p.bg};display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:clamp(16px,2.5vw,28px);font-weight:700;color:rgba(255,255,255,.07);letter-spacing:.1em;text-transform:uppercase">RESEARCH</div>
+      <div style="aspect-ratio:4/3;background:${p.bg};filter:hue-rotate(30deg);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:clamp(16px,2.5vw,28px);font-weight:700;color:rgba(255,255,255,.07);letter-spacing:.1em;text-transform:uppercase">IDEATION</div>
+    </div>` : ``;
+
+  document.getElementById("casebody").innerHTML=`
+    <div class="csec"><div class="cseclabel">01 — Project Overview</div><h3>What is this project?</h3><p>${p.ov}</p></div>
+    ${asusBlock}
+    ${ue5Block}
+    ${skinBlock}
+    ${keyboardBlock}
+    ${kitchenBlock}
+    ${perfumeBlock}
+    ${airpodBlock}
+    ${foodboxBlock}
+    ${archUIBlock}
+    ${heinekBlock}
+    ${gamingChairBlock}
+    ${cabinAnimBlock}
+    ${brandexBlock}
+    ${teaBlock}
+    ${iphoneBlock}
+    <div class="csec"><div class="cseclabel">02 — Challenge</div><h3>The Problem to Solve</h3><p>${p.ch}</p></div>
+    ${researchGrid}
+    <div class="csec"><div class="cseclabel">03 — Process &amp; Approach</div><h3>How I solved it</h3><p>${p.pr}</p></div>
+    <div class="csec"><div class="cseclabel">04 — Solution &amp; Outcome</div><h3>The Final Result</h3><p>${p.so}</p></div>
+    ${finalImgBlock}
+    <div class="csec"><div class="cseclabel">05 — Results &amp; Impact</div><div class="mrow">${p.metrics.map(m=>`<div class="mc"><span class="mn">${m.n}</span><div class="ml">${m.l}</div></div>`).join("")}</div></div>
+    <div class="csec"><div class="cseclabel">06 — Colour System</div><div class="palrow">${p.pal.map(c=>`<div class="sw"><div class="swin" style="background:${c}"></div><div class="swhex">${c}</div></div>`).join("")}</div></div>
+    <div class="tblock"><q>${p.q}</q><cite>— ${p.author}</cite></div>
+    <div class="casenav"><span style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.15em;color:#5a5652;text-transform:uppercase">More Projects</span><button onclick="closeCase()" style="font-family:'Space Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:#080808;background:#c8a96e;padding:15px 30px;border:none;cursor:pointer">← Back to All Work</button></div>
+  `;
+
+  const ov=document.getElementById("caseov");ov.classList.add("open");ov.scrollTop=0;document.body.style.overflow="hidden";
+}
+function closeCase(){document.getElementById("caseov").classList.remove("open");document.body.style.overflow="";}
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeCase()});
+
+// ── LANGUAGE TRANSLATIONS ──
+const TRANSLATIONS = {
+  en: {
+    // Nav
+    nav_work: 'Work', nav_about: 'About', nav_services: 'Services',
+    nav_experience: 'Experience', nav_contact: 'Contact',
+    // Hero
+    hero_eyebrow: 'Available for Projects · Open to Work',
+    hero_desc: '3D Visualiser & Product Designer crafting premium visual experiences — from hyper-realistic product renders to polished digital interfaces. Based in the Netherlands.',
+    hero_cta: 'View Selected Work', hero_talk: "Let's Talk",
+    // Marquee
+    marquee: ['3D Visualisation','Product Design','Animation','Motion Graphics','Brand Identity','UI Design','Rendering','Creative Direction'],
+    // Works
+    works_label: 'Selected Work', works_title: 'Featured', works_em: 'Projects',
+    filter_all: 'All', filter_3d: '3D & Viz', filter_product: 'Product', filter_motion: 'Motion', filter_brand: 'Brand',
+    // About
+    about_label: 'About Me', about_tag: '3D Specialist · Product Designer · Creative Technologist',
+    about_h2a: 'Crafting form with', about_h2b: 'purpose', about_h2c: 'and precision',
+    about_p1: 'I am a highly creative and passionate product designer with a keen eye for detail and a commitment to delivering innovative solutions. I thrive on transforming ideas into tangible, user-centric products.',
+    about_p2: 'Based in <strong style="color:var(--text)">IJsselstein, Netherlands</strong> — with experience at <strong style="color:var(--text)">RR Donnelley</strong> and <strong style="color:var(--text)">Stanley Works</strong>, I bridge technical precision with creative vision.',
+    stat1_label: 'Years Experience', stat2_label: 'Behance Appreciations', stat3_label: 'Projects Delivered',
+    exp_role1: '3D Specialist', exp_role2: 'Senior 3D Product Visualiser', exp_role3: '3D Artist',
+    // Services
+    svc_label: 'What I Do', svc_title: 'Services &', svc_em: 'Expertise', svc_cta: 'Start a Project',
+    svc1_name:'3D Visualisation', svc1_desc:'Hyper-realistic product renders, architectural visualisation, and photorealistic scenes. KeyShot · V-Ray · Blender.',
+    svc2_name:'Product Design', svc2_desc:'End-to-end product design from initial concept through refined, production-ready specs — aesthetics meeting usability.',
+    svc3_name:'Motion & Animation', svc3_desc:'Cinematic 3D animations, product reveals, motion graphics, and video reels that captivate audiences.',
+    svc4_name:'UI / UX Design', svc4_desc:'Clean, modern interfaces with strong visual hierarchy and intuitive user flows for digital products.',
+    svc5_name:'Brand Identity', svc5_desc:'Complete visual identity systems — logos, colour, typography, and guidelines that build lasting recognition.',
+    svc6_name:'Creative Direction', svc6_desc:'Art direction and creative strategy for campaigns, editorial shoots, and visual storytelling projects.',
+    // Experience
+    exp_label: 'Work Experience', exp_title: 'Professional', exp_em: 'Journey',
+    // What I Do
+    wido_label: 'Disciplines', wido_title: 'What I', wido_em: 'Do',
+    wido1_title:'3D Generalist', wido1_desc:'Versatile 3D Generalist skilled in modelling, texturing, rigging, lighting, and animation across diverse projects, with experience in both real-time and pre-rendered workflows.',
+    wido2_title:'Visual Design', wido2_desc:'Proficient in creating visually compelling designs that align with brand identity and aesthetics — from print to digital, editorial to packaging.',
+    wido3_title:'Generative AI Artist', wido3_desc:'Using AI tools and techniques to generate creative 3D assets and textures — Meshy AI, 3D AI Studio — integrated into professional production pipelines.',
+    wido4_title:'Packaging Design Engineer', wido4_desc:'Designs and develops innovative, cost-effective, and functional packaging solutions ensuring product protection, regulatory compliance, and ease of manufacturing.',
+    // Tools
+    tools_label: 'Tools & Workflow',
+    // Testimonials
+    testi_label: 'Client Feedback', testi_title: 'What clients', testi_em: 'say',
+    // Contact
+    contact_label: 'Get In Touch', contact_title: "Let's create something", contact_em: 'remarkable',
+    contact_sub: 'Available for freelance projects, full-time roles, and creative collaborations. Based in the Netherlands — open to remote work globally.',
+    contact_avail: '<span id="contact-avail-text">Available · IJsselstein, Netherlands (GMT+1)</span>',
+    contact_email: 'Email Me', contact_li: 'LinkedIn ↗', contact_be: 'Behance ↗',
+    // Footer
+    footer_copy: '© 2025 Anbazhagan Selvam · All Rights Reserved · IJsselstein, NL',
+  },
+  nl: {
+    // Nav
+    nav_work: 'Werk', nav_about: 'Over mij', nav_services: 'Diensten',
+    nav_experience: 'Ervaring', nav_contact: 'Contact',
+    // Hero
+    hero_eyebrow: 'Beschikbaar voor projecten · Open voor werk',
+    hero_desc: '3D Visualiseur & Productontwerper die premium visuele ervaringen creëert — van hyperrealistische productrenders tot gepolijste digitale interfaces. Gevestigd in Nederland.',
+    hero_cta: 'Bekijk geselecteerd werk', hero_talk: 'Neem contact op',
+    // Marquee
+    marquee: ['3D Visualisatie','Productontwerp','Animatie','Motion Graphics','Merkidentiteit','UI Design','Rendering','Creatieve regie'],
+    // Works
+    works_label: 'Geselecteerd werk', works_title: 'Uitgelichte', works_em: 'Projecten',
+    filter_all: 'Alles', filter_3d: '3D & Viz', filter_product: 'Product', filter_motion: 'Motion', filter_brand: 'Merk',
+    // About
+    about_label: 'Over mij', about_tag: '3D Specialist · Productontwerper · Creatief technoloog',
+    about_h2a: 'Vorm creëren met', about_h2b: 'doel', about_h2c: 'en precisie',
+    about_p1: 'Ik ben een creatieve en gepassioneerde productontwerper met oog voor detail en een toewijding aan het leveren van innovatieve oplossingen. Ik gedij op het omzetten van ideeën in tastbare, gebruikersgerichte producten.',
+    about_p2: 'Gevestigd in <strong style="color:var(--text)">IJsselstein, Nederland</strong> — met ervaring bij <strong style="color:var(--text)">RR Donnelley</strong> en <strong style="color:var(--text)">Stanley Works</strong>, overbrugge ik technische precisie met creatieve visie.',
+    stat1_label: 'Jaar ervaring', stat2_label: 'Behance-waarderingen', stat3_label: 'Projecten geleverd',
+    exp_role1: '3D Specialist', exp_role2: 'Senior 3D Product Visualiseur', exp_role3: '3D Kunstenaar',
+    // Services
+    svc_label: 'Wat ik doe', svc_title: 'Diensten &', svc_em: 'Expertise', svc_cta: 'Start een project',
+    svc1_name:'3D Visualisatie', svc1_desc:'Hyperrealistische productrenders, architecturale visualisatie en fotorealistische scènes. KeyShot · V-Ray · Blender.',
+    svc2_name:'Productontwerp', svc2_desc:'End-to-end productontwerp van het eerste concept tot verfijnde, productieklare specificaties — esthetiek ontmoet bruikbaarheid.',
+    svc3_name:'Motion & Animatie', svc3_desc:'Cinematische 3D-animaties, productonthullingen, motion graphics en videoreels die het publiek boeien.',
+    svc4_name:'UI / UX Ontwerp', svc4_desc:'Strakke, moderne interfaces met sterke visuele hiërarchie en intuïtieve gebruikersstromen voor digitale producten.',
+    svc5_name:'Merkidentiteit', svc5_desc:'Volledige visuele identiteitssystemen — logo\'s, kleur, typografie en richtlijnen die blijvende herkenning opbouwen.',
+    svc6_name:'Creatieve regie', svc6_desc:'Art direction en creatieve strategie voor campagnes, redactionele shoots en visuele storytellingprojecten.',
+    // Experience
+    exp_label: 'Werkervaring', exp_title: 'Professionele', exp_em: 'Loopbaan',
+    // What I Do
+    wido_label: 'Vakgebieden', wido_title: 'Wat ik', wido_em: 'doe',
+    wido1_title:'3D Generalist', wido1_desc:'Veelzijdige 3D Generalist bedreven in modelleren, textureren, riggen, belichting en animatie in diverse projecten, met ervaring in zowel realtime als pre-rendered workflows.',
+    wido2_title:'Visueel ontwerp', wido2_desc:'Bedreven in het creëren van visueel boeiende ontwerpen die aansluiten bij merkidentiteit en esthetiek — van print tot digitaal, redactioneel tot verpakking.',
+    wido3_title:'Generatieve AI-kunstenaar', wido3_desc:'Gebruik van AI-tools en -technieken om creatieve 3D-assets en texturen te genereren — Meshy AI, 3D AI Studio — geïntegreerd in professionele productieprocessen.',
+    wido4_title:'Verpakkingsontwerp-ingenieur', wido4_desc:'Ontwerpt en ontwikkelt innovatieve, kosteneffectieve en functionele verpakkingsoplossingen die productbescherming, naleving van regelgeving en productiegemak garanderen.',
+    // Tools
+    tools_label: 'Tools & Werkproces',
+    // Testimonials
+    testi_label: 'Klantfeedback', testi_title: 'Wat klanten', testi_em: 'zeggen',
+    // Contact
+    contact_label: 'Neem contact op', contact_title: 'Laten we iets', contact_em: 'bijzonders maken',
+    contact_sub: 'Beschikbaar voor freelanceprojecten, voltijdse functies en creatieve samenwerkingen. Gevestigd in Nederland — open voor remote werk wereldwijd.',
+    contact_avail: 'Beschikbaar · IJsselstein, Nederland (GMT+1)',
+    contact_email: 'E-mail mij', contact_li: 'LinkedIn ↗', contact_be: 'Behance ↗',
+    // Footer
+    footer_copy: '© 2025 Anbazhagan Selvam · Alle rechten voorbehouden · IJsselstein, NL',
+  }
+};
+
+let currentLang = 'en';
+
+function setLang(lang) {
+  currentLang = lang;
+  const t = TRANSLATIONS[lang];
+
+  // Toggle buttons
+  document.getElementById('btn-en').classList.toggle('active', lang==='en');
+  document.getElementById('btn-nl').classList.toggle('active', lang==='nl');
+
+  // Nav links - update by href to avoid index issues
+  const navMap = {
+    '#works': t.nav_work, '#about': t.nav_about,
+    '#services': t.nav_services, '#experience': t.nav_experience, '#contact': t.nav_contact
+  };
+  document.querySelectorAll('.nlinks a').forEach(a => {
+    if(navMap[a.getAttribute('href')]) a.textContent = navMap[a.getAttribute('href')];
+  });
+
+  // Hero
+  setEl('hero-eyebrow-text', t.hero_eyebrow);
+  setEl('hero-desc-text', t.hero_desc);
+  setEl('hero-cta-text', t.hero_cta);
+  setEl('hero-talk-text', t.hero_talk);
+
+  // Marquee - update only text-content spans (skip dots)
+  const marqueeSpans = Array.from(document.querySelectorAll('.mitem span'))
+    .filter(s => !s.classList.contains('mdot'));
+  marqueeSpans.forEach((el,i) => {
+    const items = t.marquee;
+    if(i < items.length * 2) el.textContent = items[i % items.length];
+  });
+
+  // Works section
+  setEl('works-label', t.works_label);
+  setEl('works-title-main', t.works_title);
+  setEl('works-title-em', t.works_em);
+  const filterBtns = document.querySelectorAll('.fb');
+  const filterKeys = ['filter_all','filter_3d','filter_product','filter_motion','filter_brand'];
+  filterBtns.forEach((b,i)=>{ if(filterKeys[i]) b.textContent = t[filterKeys[i]]; });
+
+  // About
+  setEl('about-label', t.about_label);
+  setEl('about-tag', t.about_tag);
+  setEl('about-h2a', t.about_h2a);
+  setEl('about-h2b', t.about_h2b);
+  setEl('about-h2c', t.about_h2c);
+  setHTML('about-p1', t.about_p1);
+  setHTML('about-p2', t.about_p2);
+  setEl('stat1-label', t.stat1_label);
+  setEl('stat2-label', t.stat2_label);
+  setEl('stat3-label', t.stat3_label);
+
+  // Services
+  setEl('svc-label', t.svc_label);
+  setEl('svc-title-main', t.svc_title);
+  setEl('svc-title-em', t.svc_em);
+  setEl('svc-cta', t.svc_cta);
+  for(let i=1;i<=6;i++){
+    setEl(`svc${i}-name`, t[`svc${i}_name`]);
+    setEl(`svc${i}-desc`, t[`svc${i}_desc`]);
+  }
+
+  // Experience
+  setEl('exp-label', t.exp_label);
+  setEl('exp-title-main', t.exp_title);
+  setEl('exp-title-em', t.exp_em);
+
+  // What I Do
+  setEl('wido-label', t.wido_label);
+  setEl('wido-title-main', t.wido_title);
+  setEl('wido-title-em', t.wido_em);
+  for(let i=1;i<=4;i++){
+    setEl(`wido${i}-title`, t[`wido${i}_title`]);
+    setEl(`wido${i}-desc`, t[`wido${i}_desc`]);
+  }
+
+  // Tools
+  setEl('tools-label', t.tools_label);
+
+  // Testimonials
+  setEl('testi-label', t.testi_label);
+  setEl('testi-title-main', t.testi_title);
+  setEl('testi-title-em', t.testi_em);
+
+  // Contact
+  setEl('contact-label', t.contact_label);
+  setEl('contact-title-main', t.contact_title);
+  setEl('contact-title-em', t.contact_em);
+  setEl('contact-sub', t.contact_sub);
+  setEl('contact-avail-text', t.contact_avail);
+  setEl('contact-email', t.contact_email);
+  setEl('contact-li', t.contact_li);
+  setEl('contact-be', t.contact_be);
+
+  // Footer
+  setEl('footer-copy', t.footer_copy);
+
+  // Store preference
+  localStorage.setItem('lang', lang);
+}
+
+function setEl(id, text){ const el=document.getElementById(id); if(el) el.textContent=text; }
+function setHTML(id, html){ const el=document.getElementById(id); if(el) el.innerHTML=html; }
+
+// Restore saved language preference on load
+document.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('lang');
+  if (saved && saved !== 'en') setLang(saved);
+});
+
+const CHAIR_HERO  = "assets/chair_hero.jpg";
+const CHAIR_FRONT = "assets/chair_front.jpg";
+const CHAIR_BACK  = "assets/chair_back.jpg";
+const CHAIR_WIRE1 = "assets/chair_wire1.jpg";
+const CHAIR_WIRE2 = "assets/chair_wire2.jpg";
+const CABIN_BL1   = "assets/cabin_bl1.jpg";
+const CABIN_BL2   = "assets/cabin_bl2.jpg";
+const CABIN_BL3   = "assets/cabin_bl3.jpg";
+const CABIN_BL4   = "assets/cabin_bl4.jpg";
+const CABIN_TEX   = "assets/cabin_tex.jpg";
+</script>
+</body>
+</html>
