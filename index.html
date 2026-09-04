@@ -324,6 +324,22 @@ footer{padding:44px 64px;border-top:1px solid var(--border);display:flex;justify
       </div>
     </div>
 
+    <!-- G.I. JOE CLASSIFIED SERIES — Interactive 3D -->
+    <div class="pc hf rv d1" data-cat="product" onclick="openCase(15)">
+      <div class="pthumb">
+        <div class="pinner">
+          <div class="pbg" style="background:linear-gradient(135deg,#0a0a00 0%,#1a1400 50%,#2d2000 100%)"></div>
+          <img src="assets/gi_joe_thumb.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)" alt="Walmart G.I. Joe Classified Series — Hero Composite">
+        </div>
+        <div class="pov"></div><div class="phov">Interact in 3D →</div>
+      </div>
+      <div class="pinfo">
+        <div class="pmeta"><span class="ptag">3D Character Viz</span><span class="pyr">2025</span></div>
+        <div class="ptitle">G.I. Joe Classified Series</div>
+        <div class="psum">Interactive 3D product visualisation of the G.I. Joe Classified Series figure for Walmart e-commerce — real-time GLB model with PBR materials and Substance 3D texturing.</div>
+      </div>
+    </div>
+
     <div class="pc hf rv d2" data-cat="3d" onclick="openCase(2)">
       <div class="pthumb">
         <div class="pinner">
@@ -940,7 +956,17 @@ const P=[
    so:"Delivered a production-ready interactive GLB model for Walmart's e-commerce product listing — allowing customers to rotate, zoom, and inspect the gaming chair from every angle in real time directly in the browser. The model meets Walmart's 3D asset specification and supports future AR preview integration for mobile shoppers.",
    metrics:[{n:"GLB",l:"Interactive Format"},{n:"PBR",l:"Material System"},{n:"Walmart",l:"Client"}],
    pal:["#000c1a","#001e3c","#002d59","#004080","#0056a6"],
-   q:"The interactive 3D model lets customers see every angle and detail before buying — exactly the kind of experience that drives conversion on our product pages.",author:"Product Manager, Walmart E-commerce"}];
+   q:"The interactive 3D model lets customers see every angle and detail before buying — exactly the kind of experience that drives conversion on our product pages.",author:"Product Manager, Walmart E-commerce"},
+  {tag:"3D Character Viz",title:"Walmart G.I. Joe Classified Series — 3D Product Visualization",sub:"Interactive 3D product visualisation of the G.I. Joe Classified Series action figure for Walmart e-commerce — real-time GLB model with detailed PBR character materials, UV unwrapping, and Substance 3D Painter texturing.",
+   year:"2025",role:"3D Modelling · UV Unwrapping · PBR Texturing · Character Materials · Product Lighting",tools:"Blender · Substance 3D Painter",client:"Walmart",
+   bg:"linear-gradient(135deg,#0a0a00 0%,#1a1400 50%,#2d2000 100%)",hasVideo:false,isIphone:false,isTea:false,isBrandex:false,isUE5:false,isSkin:false,isKeyboard:false,isKitchen:false,isPerfume:false,isAirpod:false,isFoodBox:false,isArchUI:false,isHeineken:false,isGamingChair:false,isCabinAnim:false,isChair:false,isWalmartChair:false,isGIJoe:true,
+   ov:"A detailed interactive 3D product visualisation of the G.I. Joe Classified Series action figure created for Walmart e-commerce. The deliverable is a real-time WebGL GLB model built in Blender, with full character UV unwrapping and PBR materials developed in Substance 3D Painter — covering the figure's tactical gear, uniform fabric, hard armour plates, and accessories. The interactive viewer lets customers inspect every character detail before purchase.",
+   ch:"Creating a high-detail character model that translates accurately to a web-optimised GLB format — balancing polygon count with surface detail across complex costume geometry including straps, buckles, fabric folds, and moulded armour. PBR material layering for the tactical uniform required careful roughness and normal map work to read correctly under neutral product lighting.",
+   pr:"Step 1: High-poly character modelling in Blender — full figure including head, body armour, tactical vest, uniform, accessories, and base. Step 2: UV unwrapping — clean UV layout across all character components with optimal texel density for PBR baking. Step 3: Substance 3D Painter texturing — baked normal, AO, and curvature maps; developed material library for fabric, hard plastic armour, metal buckles, and skin. Step 4: GLB export with Draco compression and validated in web viewers for Walmart's 3D product listing specification.",
+   so:"Delivered a production-ready interactive GLB model for Walmart's G.I. Joe Classified Series product page — allowing customers to rotate, zoom, and inspect the figure from every angle in real time. The model supports AR preview integration and meets Walmart's 3D asset specification for polygon count and texture resolution.",
+   metrics:[{n:"GLB",l:"Interactive Format"},{n:"PBR",l:"Material System"},{n:"Walmart",l:"Client"}],
+   pal:["#0a0a00","#1a1400","#2d2000","#8b6914","#c8a040"],
+   q:"The G.I. Joe 3D model gives customers the confidence to buy — they can see every detail of the figure before it arrives.",author:"Product Manager, Walmart E-commerce"}];
 
 function openCase(i){
   const p=P[i];
@@ -1543,6 +1569,56 @@ function openCase(i){
       <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Walmart Gaming Chair · Interactive GLB Model — Drag to Rotate · Pinch to Zoom · Blender · Substance 3D Painter · 2025</div>
     </div>` : ``;
 
+  const giJoeBlock = p.isGIJoe ? `
+    <div class="csec"><div class="cseclabel">Step 01 — Hero Composite · Final Renders</div>
+      <div style="overflow:hidden;background:#0a0a00;margin-bottom:0">
+        <img src="assets/gi_joe_thumb.jpg" style="width:100%;display:block;object-fit:cover" alt="G.I. Joe Classified Series — Hero Composite">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Hero Composite · G.I. Joe Classified Series — Blender Cycles · PBR Character Materials · Walmart · 2025</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 02 — Product Renders · Multi-View</div>
+      <div class="imggrid2" style="margin:0 0 20px">
+        <div style="overflow:hidden;background:#0a0a00">
+          <img src="assets/gi_joe_1.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="G.I. Joe — Front View">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Render 01 · Front View — Tactical Uniform · Hard Armour · PBR Fabric</div>
+        </div>
+        <div style="overflow:hidden;background:#0a0a00">
+          <img src="assets/gi_joe_2.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="G.I. Joe — 3/4 View">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Render 02 · 3/4 Angle — Gear Detail · Straps · Buckles · Metal Hardware</div>
+        </div>
+      </div>
+      <div class="imggrid2" style="margin:0 0 20px">
+        <div style="overflow:hidden;background:#0a0a00">
+          <img src="assets/gi_joe_3.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="G.I. Joe — Character Detail">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Render 03 · Character Detail — Head Sculpt · Accessories · Substance 3D Painter</div>
+        </div>
+        <div style="overflow:hidden;background:#0a0a00">
+          <img src="assets/gi_joe_4.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="G.I. Joe — Side View">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Render 04 · Full Figure — E-commerce Ready · Walmart Product Listing</div>
+        </div>
+      </div>
+      <div style="overflow:hidden;background:#0a0a00">
+        <img src="assets/gi_joe_5.png" style="width:100%;display:block;object-fit:cover" alt="G.I. Joe — Final Render">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Render 05 · Studio Final — Complete Figure · Classified Series · Blender Cycles 4K</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 03 — Interactive 3D Model · Drag to Rotate · Pinch to Zoom</div>
+      <div style="width:100%;background:#0a0a00;overflow:hidden;position:relative;aspect-ratio:16/9">
+        <model-viewer
+          src="assets/gi_joe.glb"
+          alt="G.I. Joe Classified Series — Interactive 3D Model"
+          auto-rotate
+          camera-controls
+          rotation-per-second="15deg"
+          shadow-intensity="1.5"
+          exposure="1.2"
+          environment-image="neutral"
+          style="width:100%;height:100%;background:transparent">
+        </model-viewer>
+      </div>
+      <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">G.I. Joe Classified Series · Interactive GLB Model — Drag to Rotate · Pinch to Zoom · Blender · Substance 3D Painter · 2025</div>
+    </div>` : ``;
+
   const finalImgBlock = p.isGamingChair ? `
     <div style="margin:44px 0 0;background:#f8f8f8;overflow:hidden">
       <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Gaming Chair — Final Hero Render">
@@ -1583,7 +1659,7 @@ function openCase(i){
     <div style="margin:44px 0 0;background:#050505;overflow:hidden">
       <img src="${SKIN_RENDER}" style="width:100%;display:block;object-fit:cover" alt="The Skin Theory — Final 4K Render">
       <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Output · The Skin Theory Cleansing Oil — Cycles 4K · 2025</div>
-    </div>` : p.isWalmartChair ? `` : p.isUE5 ? `` : p.isBrandex ? `
+    </div>` : p.isWalmartChair ? `` : p.isGIJoe ? `` : p.isUE5 ? `` : p.isBrandex ? `
     <div style="margin:44px 0 0;background:#b87800;overflow:hidden">
       <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Brandex — Final Render Output">
       <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Output · Brandex Cheddar Cheese — Cycles 4K Studio Render · 2024</div>
@@ -1600,7 +1676,7 @@ function openCase(i){
       <span style="font-family:'Playfair Display',serif;font-size:clamp(20px,4vw,52px);font-style:italic;font-weight:700;color:rgba(255,255,255,.09);padding:20px;text-align:center">Final Output — ${p.title}</span>
     </div></div>`;
 
-  const researchGrid = (!p.hasVideo && !p.isIphone && !p.isTea && !p.isBrandex && !p.isUE5 && !p.isSkin && !p.isKeyboard && !p.isKitchen && !p.isPerfume && !p.isAirpod && !p.isFoodBox && !p.isArchUI && !p.isHeineken && !p.isGamingChair && !p.isCabinAnim && !p.isWalmartChair) ? `
+  const researchGrid = (!p.hasVideo && !p.isIphone && !p.isTea && !p.isBrandex && !p.isUE5 && !p.isSkin && !p.isKeyboard && !p.isKitchen && !p.isPerfume && !p.isAirpod && !p.isFoodBox && !p.isArchUI && !p.isHeineken && !p.isGamingChair && !p.isCabinAnim && !p.isWalmartChair && !p.isGIJoe) ? `
     <div class="imggrid2">
       <div style="aspect-ratio:4/3;background:${p.bg};display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:clamp(16px,2.5vw,28px);font-weight:700;color:rgba(255,255,255,.07);letter-spacing:.1em;text-transform:uppercase">RESEARCH</div>
       <div style="aspect-ratio:4/3;background:${p.bg};filter:hue-rotate(30deg);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:clamp(16px,2.5vw,28px);font-weight:700;color:rgba(255,255,255,.07);letter-spacing:.1em;text-transform:uppercase">IDEATION</div>
@@ -1621,6 +1697,7 @@ function openCase(i){
     ${gamingChairBlock}
     ${cabinAnimBlock}
     ${walmartChairBlock}
+    ${giJoeBlock}
     ${brandexBlock}
     ${teaBlock}
     ${iphoneBlock}
