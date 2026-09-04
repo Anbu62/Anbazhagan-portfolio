@@ -313,10 +313,7 @@ footer{padding:44px 64px;border-top:1px solid var(--border);display:flex;justify
       <div class="pthumb">
         <div class="pinner">
           <div class="pbg" style="background:linear-gradient(135deg,#000c1a 0%,#001e3c 50%,#002d59 100%)"></div>
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:transform .9s cubic-bezier(.25,.46,.45,.94)">
-            <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="opacity:.45"><rect x="13" y="4" width="26" height="24" rx="5" stroke="white" stroke-width="1.5" fill="none"/><rect x="7" y="28" width="38" height="8" rx="3" stroke="white" stroke-width="1.5" fill="none"/><line x1="13" y1="36" x2="9" y2="49" stroke="white" stroke-width="1.5"/><line x1="39" y1="36" x2="43" y2="49" stroke="white" stroke-width="1.5"/><line x1="19" y1="36" x2="19" y2="44" stroke="white" stroke-width="1.5"/><line x1="33" y1="36" x2="33" y2="44" stroke="white" stroke-width="1.5"/></svg>
-            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.25em;color:rgba(255,255,255,.4);text-transform:uppercase">Interactive 3D · GLB</div>
-          </div>
+          <img src="assets/wm_chair_1.avif" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)" alt="Walmart Gaming Chair — Hero Render">
         </div>
         <div class="pov"></div><div class="phov">Interact in 3D →</div>
       </div>
@@ -1501,7 +1498,35 @@ function openCase(i){
     </div>` : ``;
 
   const walmartChairBlock = p.isWalmartChair ? `
-    <div class="csec"><div class="cseclabel">— Interactive 3D Model · Drag to Rotate · Pinch to Zoom</div>
+    <div class="csec"><div class="cseclabel">Step 01 — Hero Render · Final Visualisation</div>
+      <div style="overflow:hidden;background:#000c1a;margin-bottom:0">
+        <img src="assets/wm_chair_1.avif" style="width:100%;display:block;object-fit:cover" alt="Walmart Gaming Chair — Hero Render">
+        <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Hero Render · Walmart Gaming Chair — Blender Cycles · PBR Materials · Studio Lighting · 2025</div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 02 — Product Angles · Multi-View Renders</div>
+      <div class="imggrid2" style="margin:0 0 20px">
+        <div style="overflow:hidden;background:#001428">
+          <img src="assets/wm_chair_2.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="Walmart Gaming Chair — Angle View">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Product Angle 01 · 3/4 Front View — PBR Leather · Chrome Base</div>
+        </div>
+        <div style="overflow:hidden;background:#001428">
+          <img src="assets/wm_chair_3.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="Walmart Gaming Chair — Side View">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Product Angle 02 · Side Profile — Backrest · Lumbar · Armrest Detail</div>
+        </div>
+      </div>
+      <div class="imggrid2" style="margin:0">
+        <div style="overflow:hidden;background:#001428">
+          <img src="assets/wm_chair_4.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="Walmart Gaming Chair — Detail View">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Product Angle 03 · Material & Texture Detail — Substance 3D Painter · PBR</div>
+        </div>
+        <div style="overflow:hidden;background:#001428">
+          <img src="assets/wm_chair_5.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="Walmart Gaming Chair — Full View">
+          <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Product Angle 04 · Full Chair View — E-commerce Ready · Walmart Listing</div>
+        </div>
+      </div>
+    </div>
+    <div class="csec"><div class="cseclabel">Step 03 — Interactive 3D Model · Drag to Rotate · Pinch to Zoom</div>
       <div style="width:100%;background:#000c1a;overflow:hidden;position:relative;aspect-ratio:16/9">
         <model-viewer
           src="assets/walmart_chair.glb"
