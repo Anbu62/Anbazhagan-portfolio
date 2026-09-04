@@ -439,7 +439,7 @@ footer{padding:44px 64px;border-top:1px solid var(--border);display:flex;justify
       <div class="pthumb">
         <div class="pinner">
           <div class="pbg" style="background:linear-gradient(135deg,#001a00,#003300,#004d00)"></div>
-          <img src="assets/inline_jpg_2.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)" alt="Heineken 3D Visualisation — Final Render">
+          <img src="assets/hk_comp.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)" alt="Heineken 3D Visualisation — Final Render">
         </div>
         <div class="pov"></div><div class="phov">View Case Study →</div>
       </div>
@@ -469,7 +469,7 @@ footer{padding:44px 64px;border-top:1px solid var(--border);display:flex;justify
       <div class="pthumb">
         <div class="pinner">
           <div class="pbg" style="background:linear-gradient(135deg,#1a0e00,#2d1800,#4a2800)"></div>
-          <img src="assets/cabin_bl1.jpg" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)" alt="Cozy Cabin Interior Animation">
+          <img src="assets/cabin_bl1.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)" alt="Cozy Cabin Interior Animation">
         </div>
         <div class="pov"></div><div class="phov">View Case Study →</div>
       </div>
@@ -488,7 +488,7 @@ footer{padding:44px 64px;border-top:1px solid var(--border);display:flex;justify
       <div class="pthumb">
         <div class="pinner">
           <div class="pbg" style="background:linear-gradient(135deg,#7b0070,#c8003a,#e8b000)"></div>
-          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)" src="assets/bdx_ytubs2.jpg" alt="Brandex cheese packaging">
+          <img style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .9s cubic-bezier(.25,.46,.45,.94)" src="assets/bdx_ytubs2.png" alt="Brandex cheese packaging">
         </div>
         <div class="pov"></div><div class="phov">View Case Study →</div>
       </div>
@@ -730,15 +730,15 @@ footer{padding:44px 64px;border-top:1px solid var(--border);display:flex;justify
 const VIDEO_DATA = "assets/video_data.mp4";
 const ASUS_IMG   = "assets/asus_img.png";
 const IPHONE_FINAL = "assets/iphone_final.png";
-const BDX_CHEDDAR   = "assets/bdx_cheddar.jpg";
-const BDX_HOLANDES  = "assets/bdx_holandes.jpg";
-const BDX_BUFARELINI= "assets/bdx_bufarelini.jpg";
-const BDX_MOZZ     = "assets/bdx_mozz.jpg";
-const BDX_YTUBS    = "assets/bdx_ytubs.jpg";
-const BDX_YTUBS2   = "assets/bdx_ytubs2.jpg";
-const BDX_WIRE1    = "assets/bdx_wire1.jpg";
-const BDX_WIRE2    = "assets/bdx_wire2.jpg";
-const BDX_WIRE3    = "assets/bdx_wire3.jpg";
+const BDX_CHEDDAR   = "assets/bdx_cheddar.png";
+const BDX_HOLANDES  = "assets/bdx_holandes.png";
+const BDX_BUFARELINI= "assets/bdx_bufarelini.png";
+const BDX_MOZZ     = "assets/bdx_mozz.png";
+const BDX_YTUBS    = "assets/bdx_ytubs.png";
+const BDX_YTUBS2   = "assets/bdx_ytubs2.png";
+const BDX_WIRE1    = "assets/bdx_wire1.png";
+const BDX_WIRE2    = "assets/bdx_wire2.png";
+const BDX_WIRE3    = "assets/bdx_wire3.png";
 const IPHONE_IMG1 = "assets/iphone_img1.png";
 const IPHONE_IMG2 = "assets/iphone_img2.png";
 const IPHONE_IMG3 = "assets/iphone_img3.png";
@@ -1162,51 +1162,51 @@ function openCase(i){
   const heinekBlock = p.isHeineken ? `
     <div class="csec"><div class="cseclabel">Step 01 — Project Overview · Final Render</div>
       <div style="overflow:hidden;background:#001a00;margin-bottom:0">
-        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken 3D Visualisation — project hero">
+        <img src="assets/hk_render1.png" style="width:100%;display:block;object-fit:cover" alt="Heineken 3D Visualisation — project hero">
         <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Heineken 3D Visualisation · Blender — Metallic Aluminium · Condensation Droplets · HDR Lighting · Cycles</div>
       </div>
     </div>
     <div class="csec"><div class="cseclabel">Step 02 — Final Render · Clean Hero Shot</div>
       <div style="overflow:hidden;background:#0a0a0a;margin-bottom:0">
-        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken final render — clean hero">
+        <img src="assets/hk_comp.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken final render — clean hero">
         <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Render · Colour Corrected Hero — Condensation SSS · Translucent Label Shader · Metallic Aluminium Body · Cycles 4K</div>
       </div>
     </div>
     <div class="csec"><div class="cseclabel">Step 03 — Lighting Study · Three Variants</div>
       <div style="overflow:hidden;background:#050505;margin-bottom:20px">
-        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken 3-light comparison">
+        <img src="assets/hk_lighting.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken 3-light comparison">
         <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Lighting Variants · Light-01 / Light-02 / Light-03 — HDR Environment + Strategically Placed Spotlights · Key/Fill/Rim Rig</div>
       </div>
       <div style="overflow:hidden;background:#050505">
-        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken light comparison split">
+        <img src="assets/hk_render2.png" style="width:100%;display:block;object-fit:cover" alt="Heineken light comparison split">
         <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Light-01 vs Light-02 Split · Dramatic Side Lighting — Highlight and Shadow Balance on Green Aluminium</div>
       </div>
     </div>
     <div class="csec"><div class="cseclabel">Step 04 — Wireframe & Model Breakdown</div>
       <div style="overflow:hidden;background:#0a0a0a;margin-bottom:0">
-        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken render vs wireframe split">
+        <img src="assets/hk_wireframe.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken render vs wireframe split">
         <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Original Render vs Wireframe Split — Can Body Topology · Condensation Particle System · UV Layout</div>
       </div>
     </div>
     <div class="csec"><div class="cseclabel">Step 05 — Raw Render vs Final Composition</div>
       <div class="imggrid2" style="margin:0 0 20px">
         <div style="overflow:hidden;background:#0a0a0a">
-          <img src="assets/inline_jpg_2.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Raw vs after composition — portrait">
+          <img src="assets/hk_render4.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="Raw vs after composition — portrait">
           <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Raw Render vs After Composition · Portrait — Colour Grade + Glow + Reflection Enhancement</div>
         </div>
         <div style="overflow:hidden;background:#0a0a0a">
-          <img src="assets/inline_jpg_2.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Raw vs final — landscape comparison">
+          <img src="assets/hk_rawfinal.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Raw vs final — landscape comparison">
           <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Raw vs Final · Landscape — Compositing Nodes · Colour Correction · Green Accent Enhancement</div>
         </div>
       </div>
     </div>
     <div class="csec"><div class="cseclabel">Step 06 — Render Pass Contact Sheet · AOV Breakdown</div>
       <div style="overflow:hidden;background:#0a0a0a;margin-bottom:20px">
-        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken full render pass contact sheet">
+        <img src="assets/hk_passes.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken full render pass contact sheet">
         <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Full AOV Contact Sheet · RGB · Light-01/02/03 · Direct Diffuse · Occlusion · Refraction · Specular · Z-Depth · Alpha · Normals · UV · IDs · Wireframe</div>
       </div>
       <div style="overflow:hidden;background:#0a0a0a">
-        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Heineken render passes alternate">
+        <img src="assets/hk_render3.png" style="width:100%;display:block;object-fit:cover" alt="Heineken render passes alternate">
         <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Render Passes Grid · Light-01/02 · Direct Diffuse · Occlusion · Indirect/Direct Specular · Z-Depth · Alpha · UV · Diffuse Color · ID Mattes</div>
       </div>
     </div>` : ``;
@@ -1214,18 +1214,18 @@ function openCase(i){
   const gamingChairBlock = p.isGamingChair ? `
     <div class="csec"><div class="cseclabel">Step 01 — Hero Render · 3/4 Angle</div>
       <div style="overflow:hidden;background:#f8f8f8;margin-bottom:0">
-        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Gaming Chair hero render">
+        <img src="assets/chair_hero.jpg" style="width:100%;display:block;object-fit:cover" alt="Gaming Chair hero render">
         <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Hero Render · OpSeat Gaming Chair — 3/4 Angle · Black & Red PU Leather · Blender Cycles 4K</div>
       </div>
     </div>
     <div class="csec"><div class="cseclabel">Step 02 — Front & Rear Elevation Renders</div>
       <div class="imggrid2" style="margin:0">
         <div style="overflow:hidden;background:#f8f8f8">
-          <img src="assets/inline_jpg_2.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Gaming chair front view">
+          <img src="assets/chair_front.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Gaming chair front view">
           <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Front Elevation · Full Chair — Lumbar Support · Headrest · Armrests · Red Side Bolsters</div>
         </div>
         <div style="overflow:hidden;background:#f8f8f8">
-          <img src="assets/inline_jpg_2.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Gaming chair rear view">
+          <img src="assets/chair_back.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Gaming chair rear view">
           <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Rear Elevation · Backrest Detail — Red Ventilation Slots · Recline Mechanism · Gas Lift</div>
         </div>
       </div>
@@ -1246,31 +1246,31 @@ function openCase(i){
   const cabinAnimBlock = p.isCabinAnim ? `
     <div class="csec"><div class="cseclabel">Step 01 — Blender Scene · Camera View</div>
       <div style="overflow:hidden;background:#1a0a00;margin-bottom:0">
-        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Cozy cabin interior — camera perspective">
+        <img src="assets/cabin_bl1.png" style="width:100%;display:block;object-fit:cover" alt="Cozy cabin interior — camera perspective">
         <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Blender Camera View · 354 Objects · Snowflakes Scene — Camera Frame 807 · Timeline 750–1499</div>
       </div>
     </div>
     <div class="csec"><div class="cseclabel">Step 02 — Scene Layout · Object Placement</div>
       <div style="overflow:hidden;background:#1a0a00;margin-bottom:0">
-        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Cozy cabin scene overview">
+        <img src="assets/cabin_bl2.png" style="width:100%;display:block;object-fit:cover" alt="Cozy cabin scene overview">
         <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Scene Overview · Camera + Light Rig Visible — Log Cabin Walls · Fireplace · Sofa · Coffee Table Layout</div>
       </div>
     </div>
     <div class="csec"><div class="cseclabel">Step 03 — Clay Render & Asset Breakdown</div>
       <div class="imggrid2" style="margin:0 0 20px">
         <div style="overflow:hidden;background:#1a1a1a">
-          <img src="assets/inline_jpg_2.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Cat model wireframe">
+          <img src="assets/cabin_bl3.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="Cat model wireframe">
           <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Asset Breakdown · Sleeping Cat — Organic Mesh + Cloth Sim Fur · Photoscanned Texture</div>
         </div>
         <div style="overflow:hidden;background:#1a1a1a">
-          <img src="assets/inline_jpg_2.jpg" style="width:100%;height:100%;object-fit:cover;display:block" alt="Clay render sofa and interior">
+          <img src="assets/cabin_bl4.png" style="width:100%;height:100%;object-fit:cover;display:block" alt="Clay render sofa and interior">
           <div style="padding:12px 16px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Clay Render · Sofa & Interior — Coffee Table · Lamp · Mugs · Props Detail Visible</div>
         </div>
       </div>
     </div>
     <div class="csec"><div class="cseclabel">Step 04 — UV & Texture Work · Fabric Material</div>
       <div style="overflow:hidden;background:#0d0d0d;margin-bottom:0">
-        <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="UV editor and plaid sofa texture">
+        <img src="assets/cabin_tex.png" style="width:100%;display:block;object-fit:cover" alt="UV editor and plaid sofa texture">
         <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">UV Editor · Buffalo Plaid Sofa Fabric — Tiled Texture Map + Sofa Mesh UV Layout · Blender Material Setup</div>
       </div>
     </div>` : ``;
@@ -1795,11 +1795,11 @@ const CHAIR_FRONT = "assets/chair_front.jpg";
 const CHAIR_BACK  = "assets/chair_back.jpg";
 const CHAIR_WIRE1 = "assets/chair_wire1.jpg";
 const CHAIR_WIRE2 = "assets/chair_wire2.jpg";
-const CABIN_BL1   = "assets/cabin_bl1.jpg";
-const CABIN_BL2   = "assets/cabin_bl2.jpg";
-const CABIN_BL3   = "assets/cabin_bl3.jpg";
-const CABIN_BL4   = "assets/cabin_bl4.jpg";
-const CABIN_TEX   = "assets/cabin_tex.jpg";
+const CABIN_BL1   = "assets/cabin_bl1.png";
+const CABIN_BL2   = "assets/cabin_bl2.png";
+const CABIN_BL3   = "assets/cabin_bl3.png";
+const CABIN_BL4   = "assets/cabin_bl4.png";
+const CABIN_TEX   = "assets/cabin_tex.png";
 </script>
 </body>
 </html>
