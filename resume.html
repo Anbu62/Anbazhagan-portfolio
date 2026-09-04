@@ -1,0 +1,627 @@
+<title>Anbazhagan Selvam</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@400;700;900&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+  --sidebar: #0d0d0d;
+  --body: #181818;
+  --surface: #212020;
+  --border: #272323;
+  --accent: #c8900d;
+  --accent-dim: rgba(200,144,13,.15);
+  --text: #ede9e4;
+  --text2: #9a948d;
+  --text3: #5c5855;
+  --bar-bg: #2c2828;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', Arial, sans-serif;
+  background: var(--body);
+  color: var(--text);
+  font-size: 10.5px;
+  line-height: 1.55;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+.page {
+  width: 210mm;
+  min-height: 297mm;
+  margin: 0 auto;
+  display: flex;
+  background: var(--body);
+}
+
+/* ─── SIDEBAR ─── */
+.sidebar {
+  width: 220px;
+  min-width: 220px;
+  background: var(--sidebar);
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.photo-block {
+  padding: 22px 20px 18px;
+  display: flex;
+  justify-content: center;
+  background: var(--sidebar);
+  border-bottom: 1px solid var(--border);
+}
+
+.photo-ring {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  border: 2.5px solid var(--accent);
+  overflow: hidden;
+  background: var(--surface);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.photo-ring img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-initials {
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 900;
+  font-size: 26px;
+  color: var(--accent);
+  letter-spacing: 1px;
+}
+
+.side-section {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.side-section:last-child { border-bottom: none; }
+
+.s-head {
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 9px;
+}
+
+/* contact */
+.c-item { margin-bottom: 7px; }
+.c-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 1px;
+}
+.c-val {
+  font-size: 9.5px;
+  color: var(--text2);
+  word-break: break-all;
+}
+.c-val a { color: var(--accent); text-decoration: none; }
+
+/* education */
+.edu-deg {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.4;
+  margin-bottom: 3px;
+}
+.edu-school {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  color: var(--text3);
+  letter-spacing: .04em;
+}
+
+/* tools */
+.tool-row { margin-bottom: 7px; }
+.tool-cat {
+  font-family: 'Space Mono', monospace;
+  font-size: 7px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 2px;
+}
+.tool-list {
+  font-size: 9.5px;
+  color: var(--text2);
+  line-height: 1.45;
+}
+
+/* skill bars */
+.skill-item { margin-bottom: 8px; }
+.skill-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 3px;
+}
+.skill-name { font-size: 9.5px; color: var(--text2); }
+.skill-pct {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  color: var(--accent);
+  font-weight: 700;
+}
+.bar {
+  height: 3px;
+  background: var(--bar-bg);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+}
+
+/* hobbies */
+.hob-item { margin-bottom: 7px; }
+.hob-title { font-size: 9.5px; font-weight: 600; color: var(--text); margin-bottom: 1px; }
+.hob-sub { font-size: 8.5px; color: var(--text3); line-height: 1.35; }
+
+/* languages */
+.lang-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5px;
+}
+.lang-name { font-size: 10px; color: var(--text2); }
+.lang-level {
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5px;
+  color: var(--text3);
+  letter-spacing: .05em;
+}
+
+/* ─── MAIN ─── */
+.main {
+  flex: 1;
+  padding: 24px 26px 18px;
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid var(--border);
+}
+
+/* name */
+.name-block { margin-bottom: 3px; }
+
+.n-first {
+  display: block;
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 900;
+  font-size: 32px;
+  color: var(--text);
+  letter-spacing: .5px;
+  line-height: 1;
+}
+.n-last {
+  display: block;
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 900;
+  font-size: 32px;
+  color: var(--accent);
+  letter-spacing: .5px;
+  line-height: 1;
+}
+.n-roles {
+  margin-top: 7px;
+  font-size: 10px;
+  color: var(--text3);
+  letter-spacing: .04em;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.n-roles span { color: var(--border); }
+
+.accent-rule {
+  width: 48px;
+  height: 2px;
+  background: var(--accent);
+  margin: 10px 0 16px;
+}
+
+/* sections */
+.ms { margin-bottom: 14px; }
+
+.m-head {
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5px;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--accent);
+  padding-bottom: 5px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 10px;
+}
+
+.profile-p {
+  font-size: 10px;
+  color: #b0aaa4;
+  line-height: 1.65;
+  max-width: 58ch;
+}
+
+/* experience */
+.exp-item { margin-bottom: 12px; }
+
+.exp-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 1px;
+}
+.exp-co {
+  font-family: 'Epilogue', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  color: var(--text);
+  letter-spacing: .02em;
+}
+.exp-dates {
+  font-family: 'Space Mono', monospace;
+  font-size: 8px;
+  color: var(--accent);
+  font-weight: 700;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.exp-role {
+  font-size: 9.5px;
+  font-style: italic;
+  font-weight: 300;
+  color: var(--accent);
+  margin-bottom: 1px;
+}
+.exp-loc {
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5px;
+  color: var(--text3);
+  letter-spacing: .04em;
+  margin-bottom: 5px;
+}
+.exp-item ul {
+  padding-left: 12px;
+  list-style: none;
+}
+.exp-item ul li {
+  position: relative;
+  font-size: 9.5px;
+  color: #a8a49e;
+  margin-bottom: 2.5px;
+  line-height: 1.5;
+  padding-left: 2px;
+}
+.exp-item ul li::before {
+  content: '';
+  position: absolute;
+  left: -10px;
+  top: 6px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--border);
+  flex-shrink: 0;
+}
+
+/* disciplines */
+.disc-list { list-style: none; display: flex; flex-direction: column; gap: 5px; }
+.disc-item { display: flex; gap: 9px; align-items: flex-start; }
+.disc-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+.disc-strong {
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--text);
+  display: block;
+  margin-bottom: 1px;
+}
+.disc-sub {
+  font-size: 8.5px;
+  color: var(--text3);
+}
+
+/* footer */
+.page-footer {
+  margin-top: auto;
+  padding-top: 10px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.f-url {
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5px;
+  color: var(--accent);
+  letter-spacing: .04em;
+}
+.f-name {
+  font-family: 'Space Mono', monospace;
+  font-size: 7.5px;
+  color: var(--text3);
+  letter-spacing: .03em;
+}
+
+@media print {
+  body { background: var(--body); }
+  .page { width: 100%; }
+}
+</style>
+
+<div class="page">
+
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+
+    <div class="photo-block">
+      <div class="photo-ring">
+        <span class="photo-initials">AS</span>
+      </div>
+    </div>
+
+    <div class="side-section">
+      <div class="s-head">Contact</div>
+      <div class="c-item">
+        <div class="c-label">Phone</div>
+        <div class="c-val">0616 920 669</div>
+      </div>
+      <div class="c-item">
+        <div class="c-label">Email</div>
+        <div class="c-val">anbazhagananbu717@gmail.com</div>
+      </div>
+      <div class="c-item">
+        <div class="c-label">Location</div>
+        <div class="c-val">IJsselstein, Netherlands</div>
+      </div>
+      <div class="c-item">
+        <div class="c-label">Portfolio</div>
+        <div class="c-val"><a href="https://anbalaganportfolio.netlify.app">anbalaganportfolio.netlify.app</a></div>
+      </div>
+      <div class="c-item">
+        <div class="c-label">LinkedIn</div>
+        <div class="c-val"><a href="https://www.linkedin.com/in/anbazhagan-selvam-b9b54a115">linkedin.com/in/anbazhagan-selvam</a></div>
+      </div>
+      <div class="c-item">
+        <div class="c-label">Behance</div>
+        <div class="c-val"><a href="https://www.behance.net/anbazhagan48">behance.net/anbazhagan48</a></div>
+      </div>
+    </div>
+
+    <div class="side-section">
+      <div class="s-head">Education</div>
+      <div class="edu-deg">B.E. Electronics &amp;<br>Telecommunication Engg.</div>
+      <div class="edu-school">Anna University, India</div>
+    </div>
+
+    <div class="side-section">
+      <div class="s-head">Tools &amp; Software</div>
+      <div class="tool-row">
+        <div class="tool-cat">3D / Render</div>
+        <div class="tool-list">Blender · 3ds Max · Cycles · KeyShot · VRay</div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-cat">CAD / Pkg</div>
+        <div class="tool-list">Siemens NX · SketchUp · AutoCAD</div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-cat">Texturing</div>
+        <div class="tool-list">Substance 3D Painter</div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-cat">Motion</div>
+        <div class="tool-list">After Effects · Premiere Pro</div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-cat">Design</div>
+        <div class="tool-list">Figma · Photoshop · Illustrator</div>
+      </div>
+      <div class="tool-row">
+        <div class="tool-cat">AI Tools</div>
+        <div class="tool-list">Meshy AI · 3D AI Studio</div>
+      </div>
+      <div class="tool-row" style="margin-bottom:0">
+        <div class="tool-cat">Realtime</div>
+        <div class="tool-list">Unreal Engine 5</div>
+      </div>
+    </div>
+
+    <div class="side-section">
+      <div class="s-head">Expertise</div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">3D Visualisation</span><span class="skill-pct">95%</span></div>
+        <div class="bar"><div class="bar-fill" style="width:95%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Packaging Design</span><span class="skill-pct">90%</span></div>
+        <div class="bar"><div class="bar-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Visual Design</span><span class="skill-pct">87%</span></div>
+        <div class="bar"><div class="bar-fill" style="width:87%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">Motion &amp; Anim.</span><span class="skill-pct">80%</span></div>
+        <div class="bar"><div class="bar-fill" style="width:80%"></div></div>
+      </div>
+      <div class="skill-item">
+        <div class="skill-row"><span class="skill-name">UI / UX Design</span><span class="skill-pct">72%</span></div>
+        <div class="bar"><div class="bar-fill" style="width:72%"></div></div>
+      </div>
+      <div class="skill-item" style="margin-bottom:0">
+        <div class="skill-row"><span class="skill-name">Generative AI</span><span class="skill-pct">65%</span></div>
+        <div class="bar"><div class="bar-fill" style="width:65%"></div></div>
+      </div>
+    </div>
+
+    <div class="side-section">
+      <div class="s-head">Hobbies &amp; Interests</div>
+      <div class="hob-item">
+        <div class="hob-title">3D Art Exploration</div>
+        <div class="hob-sub">New Blender techniques &amp; styles</div>
+      </div>
+      <div class="hob-item">
+        <div class="hob-title">Digital Photography</div>
+        <div class="hob-sub">Composition, light &amp; post-processing</div>
+      </div>
+      <div class="hob-item">
+        <div class="hob-title">Gaming</div>
+        <div class="hob-sub">Visual inspiration &amp; UI/UX study</div>
+      </div>
+      <div class="hob-item">
+        <div class="hob-title">Sketching</div>
+        <div class="hob-sub">Product concepts &amp; ideation</div>
+      </div>
+      <div class="hob-item" style="margin-bottom:0">
+        <div class="hob-title">AI Experiments</div>
+        <div class="hob-sub">Exploring generative AI workflows</div>
+      </div>
+    </div>
+
+    <div class="side-section">
+      <div class="s-head">Languages</div>
+      <div class="lang-row"><span class="lang-name">English</span><span class="lang-level">Professional</span></div>
+      <div class="lang-row"><span class="lang-name">Tamil</span><span class="lang-level">Native</span></div>
+      <div class="lang-row" style="margin-bottom:0"><span class="lang-name">Dutch</span><span class="lang-level">Basic</span></div>
+    </div>
+
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+
+    <div class="name-block">
+      <span class="n-first">ANBAZHAGAN</span>
+      <span class="n-last">SELVAM</span>
+      <div class="n-roles">
+        Visual Designer <span>|</span> 3D Visualiser <span>|</span> Product Designer
+      </div>
+    </div>
+    <div class="accent-rule"></div>
+
+    <div class="ms">
+      <div class="m-head">Profile</div>
+      <p class="profile-p">Creative 3D Visualiser and Visual Designer with 9+ years of experience delivering photorealistic product renders, packaging engineering, and digital experiences for global brands. Experienced in AR/VR e-commerce visuals for Amazon and Walmart, sustainable Apple packaging using Siemens NX, and collaboration with international teams. Currently driving data-driven campaign visual design at Picnic across NL, DE and FR markets. Based in IJsselstein, Netherlands — open to hybrid and on-site opportunities.</p>
+    </div>
+
+    <div class="ms">
+      <div class="m-head">Work Experience</div>
+
+      <div class="exp-item">
+        <div class="exp-top">
+          <div class="exp-co">Picnic</div>
+          <div class="exp-dates">2025 – 2026</div>
+        </div>
+        <div class="exp-role">Senior Visual Designer</div>
+        <div class="exp-loc">Netherlands</div>
+        <ul>
+          <li>Conceptualised and produced weekly visual assets for newsletters, organic and paid social posts, online ads, and in-app campaign visuals — from initial concept to final asset delivery</li>
+          <li>Acted as guardian of Picnic's visual identity, ensuring all outputs followed brand guidelines while contributing to the evolution of the brand's look and feel across channels and markets (NL, DE, FR)</li>
+          <li>Applied a data-driven design approach — testing and validating designs through A/B tests, user feedback, and performance metrics to optimise campaign effectiveness and inform future iterations</li>
+          <li>Collaborated cross-functionally with business stakeholders, category managers, copywriters, motion designers, videographers, and international colleagues to align on goals and deliver cohesive campaigns</li>
+          <li>Tracked retail and design trends and competitor activity, sharing insights to keep the team innovative and relevant</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-top">
+          <div class="exp-co">R R Donnelley</div>
+          <div class="exp-dates">2021 – 2025</div>
+        </div>
+        <div class="exp-role">3D Visualisation &amp; Packaging Design Engineer</div>
+        <div class="exp-loc">Chennai, India</div>
+        <ul>
+          <li>Contributed to two specialised teams delivering high-impact 3D and packaging solutions for global clients</li>
+          <li>Built optimised 3D models for AR/VR product previews supporting Amazon &amp; Walmart e-commerce platforms</li>
+          <li>Designed sustainable Apple packaging using Siemens NX — precise 3D models and 2D dielines with plastic elimination</li>
+          <li>Collaborated with RRD China for CAD integration and vendor coordination from concept to production</li>
+          <li>Applied Agile methodologies ensuring timely, quality delivery across cross-functional international teams</li>
+        </ul>
+      </div>
+
+      <div class="exp-item">
+        <div class="exp-top">
+          <div class="exp-co">Froq Brand Service</div>
+          <div class="exp-dates">2019 – 2021</div>
+        </div>
+        <div class="exp-role">Senior 3D Product Visualiser</div>
+        <div class="exp-loc">India | Netherlands Collaboration</div>
+        <ul>
+          <li>Collaborated with Netherlands-based team producing photorealistic 3D visuals for Albert Heijn online platform</li>
+          <li>Created accurate 3D models from product references integrating packaging artwork dielines with brand consistency</li>
+          <li>Applied textures and materials per brand guidelines ensuring high-quality presentation across digital touchpoints</li>
+        </ul>
+      </div>
+
+      <div class="exp-item" style="margin-bottom:0">
+        <div class="exp-top">
+          <div class="exp-co">Sutherland Global Services</div>
+          <div class="exp-dates">2016 – 2018</div>
+        </div>
+        <div class="exp-role">3D Artist</div>
+        <div class="exp-loc">India</div>
+        <ul>
+          <li>Created high-quality 3D models for e-commerce products across multiple categories</li>
+          <li>Collaborated with marketing teams ensuring models met product specifications and brand standards</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="ms">
+      <div class="m-head">Disciplines &amp; Approach</div>
+      <ul class="disc-list">
+        <li class="disc-item">
+          <div class="disc-dot"></div>
+          <div><span class="disc-strong">3D Generalist</span><span class="disc-sub">Modelling, texturing, rigging, lighting &amp; animation</span></div>
+        </li>
+        <li class="disc-item">
+          <div class="disc-dot"></div>
+          <div><span class="disc-strong">Packaging Engineer</span><span class="disc-sub">Siemens NX dielines, sustainable materials &amp; compliance</span></div>
+        </li>
+        <li class="disc-item">
+          <div class="disc-dot"></div>
+          <div><span class="disc-strong">Visual Design</span><span class="disc-sub">Brand identity, editorial, print &amp; digital design</span></div>
+        </li>
+        <li class="disc-item">
+          <div class="disc-dot"></div>
+          <div><span class="disc-strong">Generative AI Art</span><span class="disc-sub">Meshy AI, 3D AI Studio — AI asset &amp; texture generation</span></div>
+        </li>
+      </ul>
+    </div>
+
+    <div class="page-footer">
+      <div class="f-url">anbalaganportfolio.netlify.app</div>
+      <div class="f-name">Anbazhagan Selvam · Visual Designer &amp; 3D Visualiser · IJsselstein, NL</div>
+    </div>
+
+  </div>
+</div>
