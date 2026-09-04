@@ -6,6 +6,7 @@
 <title>Anbazhagan Selvam — 3D Visualiser & Product Designer</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script type="module" src="https://cdn.jsdelivr.net/npm/@google/model-viewer@3.5.0/dist/model-viewer.min.js"></script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -304,6 +305,25 @@ footer{padding:44px 64px;border-top:1px solid var(--border);display:flex;justify
         <div class="pmeta"><span class="ptag">3D Animation</span><span class="pyr">2024</span></div>
         <div class="ptitle">Smartphone Exploded View</div>
         <div class="psum">Cinematic exploded-view animation revealing every internal component of a premium smartphone with dramatic studio lighting.</div>
+      </div>
+    </div>
+
+    <!-- WALMART GAMING CHAIR — Interactive 3D -->
+    <div class="pc hf rv d2" data-cat="product" onclick="openCase(14)">
+      <div class="pthumb">
+        <div class="pinner">
+          <div class="pbg" style="background:linear-gradient(135deg,#000c1a 0%,#001e3c 50%,#002d59 100%)"></div>
+          <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;transition:transform .9s cubic-bezier(.25,.46,.45,.94)">
+            <svg width="52" height="52" viewBox="0 0 52 52" fill="none" style="opacity:.45"><rect x="13" y="4" width="26" height="24" rx="5" stroke="white" stroke-width="1.5" fill="none"/><rect x="7" y="28" width="38" height="8" rx="3" stroke="white" stroke-width="1.5" fill="none"/><line x1="13" y1="36" x2="9" y2="49" stroke="white" stroke-width="1.5"/><line x1="39" y1="36" x2="43" y2="49" stroke="white" stroke-width="1.5"/><line x1="19" y1="36" x2="19" y2="44" stroke="white" stroke-width="1.5"/><line x1="33" y1="36" x2="33" y2="44" stroke="white" stroke-width="1.5"/></svg>
+            <div style="font-family:'Space Mono',monospace;font-size:8px;letter-spacing:.25em;color:rgba(255,255,255,.4);text-transform:uppercase">Interactive 3D · GLB</div>
+          </div>
+        </div>
+        <div class="pov"></div><div class="phov">Interact in 3D →</div>
+      </div>
+      <div class="pinfo">
+        <div class="pmeta"><span class="ptag">3D Product Viz</span><span class="pyr">2025</span></div>
+        <div class="ptitle">Walmart Gaming Chair</div>
+        <div class="psum">Interactive 3D product visualisation for Walmart e-commerce — real-time GLB model with PBR materials, UV unwrapping, and Substance 3D texturing. Drag to explore.</div>
       </div>
     </div>
 
@@ -913,7 +933,17 @@ const P=[
    so:"Delivered a complete product render package including multiple angles, wireframe topology renders, and a clean white-background hero shot suitable for e-commerce or advertising. The renders show the chair from every commercial angle needed for product launch.",
    metrics:[{n:"3",l:"Render Angles"},{n:"2",l:"Wireframe Passes"},{n:"4K",l:"Output Quality"}],
    pal:["#1a0000","#cc0000","#1a1a1a","#f5f5f5","#888888"],
-   q:"The gaming chair renders are indistinguishable from real product photography — exactly the quality we need for our e-commerce launch.",author:"Product Manager, Gaming Brand"}];
+   q:"The gaming chair renders are indistinguishable from real product photography — exactly the quality we need for our e-commerce launch.",author:"Product Manager, Gaming Brand"},
+  {tag:"3D Product Viz",title:"Walmart Gaming Chair — 3D Product Visualization",sub:"Interactive 3D product visualisation of a gaming chair for Walmart e-commerce — real-time GLB model built in Blender with UV unwrapping, PBR texturing in Substance 3D Painter, and optimised for web-based interactive product preview.",
+   year:"2025",role:"3D Modelling · UV Unwrapping · PBR Texturing · Material Development · Product Lighting",tools:"Blender · Substance 3D Painter",client:"Walmart",
+   bg:"linear-gradient(135deg,#000c1a 0%,#001e3c 50%,#002d59 100%)",hasVideo:false,isIphone:false,isTea:false,isBrandex:false,isUE5:false,isSkin:false,isKeyboard:false,isKitchen:false,isPerfume:false,isAirpod:false,isFoodBox:false,isArchUI:false,isHeineken:false,isGamingChair:false,isCabinAnim:false,isChair:false,isWalmartChair:true,
+   ov:"A fully interactive 3D product visualisation of a gaming chair created for Walmart e-commerce. The deliverable is a real-time WebGL GLB model built in Blender, UV-unwrapped for efficient texturing in Substance 3D Painter, with PBR materials covering mesh fabric, plastic frame, chrome mechanisms, and foam padding. The interactive viewer allows customers to rotate, zoom, and inspect every detail of the product before purchase — directly in the browser with no plugins required.",
+   ch:"Creating a clean, optimised GLB model that loads efficiently in a web viewer while maintaining the visual quality expected from a Walmart product listing. The chair's complex geometry — curved backrest, adjustable armrests, star base, and caster wheels — required careful retopology and UV unwrapping to minimise texture seams and ensure correct PBR material response across all surfaces.",
+   pr:"Step 1: High-poly modelling in Blender — full chair assembly including backrest, headrest, lumbar support, armrests, seat, five-star base, and casters with clean subdivision surface topology. Step 2: UV unwrapping — systematic UV layout across all components, optimising texel density and minimising seams on visible surfaces. Step 3: PBR texturing in Substance 3D Painter — baked normal, AO, and curvature maps; developed material library for mesh fabric, plastic frame, chrome hardware, and foam padding. Step 4: GLB export and optimisation — merged materials where possible, validated in multiple web viewers, and delivered in Walmart's 3D asset specification.",
+   so:"Delivered a production-ready interactive GLB model for Walmart's e-commerce product listing — allowing customers to rotate, zoom, and inspect the gaming chair from every angle in real time directly in the browser. The model meets Walmart's 3D asset specification and supports future AR preview integration for mobile shoppers.",
+   metrics:[{n:"GLB",l:"Interactive Format"},{n:"PBR",l:"Material System"},{n:"Walmart",l:"Client"}],
+   pal:["#000c1a","#001e3c","#002d59","#004080","#0056a6"],
+   q:"The interactive 3D model lets customers see every angle and detail before buying — exactly the kind of experience that drives conversion on our product pages.",author:"Product Manager, Walmart E-commerce"}];
 
 function openCase(i){
   const p=P[i];
@@ -1470,6 +1500,24 @@ function openCase(i){
       </div>
     </div>` : ``;
 
+  const walmartChairBlock = p.isWalmartChair ? `
+    <div class="csec"><div class="cseclabel">— Interactive 3D Model · Drag to Rotate · Pinch to Zoom</div>
+      <div style="width:100%;background:#000c1a;overflow:hidden;position:relative;aspect-ratio:16/9">
+        <model-viewer
+          src="assets/walmart_chair.glb"
+          alt="Walmart Gaming Chair — Interactive 3D Model"
+          auto-rotate
+          camera-controls
+          rotation-per-second="15deg"
+          shadow-intensity="1.5"
+          exposure="1.2"
+          environment-image="neutral"
+          style="width:100%;height:100%;background:transparent">
+        </model-viewer>
+      </div>
+      <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Walmart Gaming Chair · Interactive GLB Model — Drag to Rotate · Pinch to Zoom · Blender · Substance 3D Painter · 2025</div>
+    </div>` : ``;
+
   const finalImgBlock = p.isGamingChair ? `
     <div style="margin:44px 0 0;background:#f8f8f8;overflow:hidden">
       <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Gaming Chair — Final Hero Render">
@@ -1510,7 +1558,7 @@ function openCase(i){
     <div style="margin:44px 0 0;background:#050505;overflow:hidden">
       <img src="${SKIN_RENDER}" style="width:100%;display:block;object-fit:cover" alt="The Skin Theory — Final 4K Render">
       <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Output · The Skin Theory Cleansing Oil — Cycles 4K · 2025</div>
-    </div>` : p.isUE5 ? `` : p.isBrandex ? `
+    </div>` : p.isWalmartChair ? `` : p.isUE5 ? `` : p.isBrandex ? `
     <div style="margin:44px 0 0;background:#b87800;overflow:hidden">
       <img src="assets/inline_jpg_2.jpg" style="width:100%;display:block;object-fit:cover" alt="Brandex — Final Render Output">
       <div style="padding:14px 20px;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:#5a5652;border-top:1px solid #252525">Final Output · Brandex Cheddar Cheese — Cycles 4K Studio Render · 2024</div>
@@ -1527,7 +1575,7 @@ function openCase(i){
       <span style="font-family:'Playfair Display',serif;font-size:clamp(20px,4vw,52px);font-style:italic;font-weight:700;color:rgba(255,255,255,.09);padding:20px;text-align:center">Final Output — ${p.title}</span>
     </div></div>`;
 
-  const researchGrid = (!p.hasVideo && !p.isIphone && !p.isTea && !p.isBrandex && !p.isUE5 && !p.isSkin && !p.isKeyboard && !p.isKitchen && !p.isPerfume && !p.isAirpod && !p.isFoodBox && !p.isArchUI && !p.isHeineken && !p.isGamingChair && !p.isCabinAnim) ? `
+  const researchGrid = (!p.hasVideo && !p.isIphone && !p.isTea && !p.isBrandex && !p.isUE5 && !p.isSkin && !p.isKeyboard && !p.isKitchen && !p.isPerfume && !p.isAirpod && !p.isFoodBox && !p.isArchUI && !p.isHeineken && !p.isGamingChair && !p.isCabinAnim && !p.isWalmartChair) ? `
     <div class="imggrid2">
       <div style="aspect-ratio:4/3;background:${p.bg};display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:clamp(16px,2.5vw,28px);font-weight:700;color:rgba(255,255,255,.07);letter-spacing:.1em;text-transform:uppercase">RESEARCH</div>
       <div style="aspect-ratio:4/3;background:${p.bg};filter:hue-rotate(30deg);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:clamp(16px,2.5vw,28px);font-weight:700;color:rgba(255,255,255,.07);letter-spacing:.1em;text-transform:uppercase">IDEATION</div>
@@ -1547,6 +1595,7 @@ function openCase(i){
     ${heinekBlock}
     ${gamingChairBlock}
     ${cabinAnimBlock}
+    ${walmartChairBlock}
     ${brandexBlock}
     ${teaBlock}
     ${iphoneBlock}
